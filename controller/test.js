@@ -1,8 +1,8 @@
 const route = require("express").Router();
-const db = require("../config/db");
+const knex = require("../config/knex");
 
 route.get("/", (req, res) => {
-  return res.json(req.user);
+  res.json("/test");
 });
 
 module.exports = route;

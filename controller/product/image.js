@@ -3,21 +3,27 @@ const knex = require("../../config/knex");
 
 // POST upload images.
 route.post("/:product_id", (req, res, next) => {
-  req.files.forEach((file) => {
-    knex("image")
-      .insert({ product_id: req.params.product_id, path: file.path })
-      .catch((err) => next(err));
-  });
-  return res.json("images uploaded.");
+  try {
+    req.files.forEach(async (file) => {
+      await knex("image").insert({
+        product_id: req.params.product_id,
+        path: file.path,
+      });
+    });
+    return res.json("images uploaded.");
+  } catch (err) {
+    next(err);
+  }
 });
 
 // DELETE image by id.
-route.delete("/:product_id", (req, res, next) => {
-  knex("image")
-    .where("product_id", "=", req.params.product_id)
-    .del()
-    .catch((err) => next(err));
-  return res.json("image deleted.");
+route.delete("/:product_id", async (req, res, next) => {
+  try {
+    await knex("image").where("product_id", "=", req.params.product_id).del();
+    return res.json("image deleted.");
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = route;

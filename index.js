@@ -1,17 +1,18 @@
 const express = require("express");
+const multer = require("./config/multer");
+const morgan = require("morgan");
 const app = express();
 const port = process.env.PORT || 8000;
 
 // config
-const multer = require("./config/multer");
-
+app.use("/upload", express.static("upload"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/upload", express.static("upload"));
 app.use(multer.array("image"));
+app.use(morgan("dev"));
 
 // middleware
-const { isAuth } = require("./config/middleware");
+const { isAuth, notFund, errorHandle } = require("./config/middleware");
 
 // route
 const test = require("./controller/test");
@@ -27,5 +28,8 @@ app.use("/product/image", isAuth, image);
 app.get("/check", isAuth, (req, res) => {
   return res.json(req.user);
 });
+
+app.use(notFund);
+app.use(errorHandle);
 
 app.listen(port, () => console.log(`Server stared port : ${port}`));

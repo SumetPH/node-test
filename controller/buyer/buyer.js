@@ -1,27 +1,27 @@
 const route = require("express").Router();
-const knex = require("../config/knex");
-const key = require("../config/key");
+const knex = require("../../config/knex");
+const key = require("../../config/key");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // POST register
 route.post("/register", (req, res, next) => {
-  knex
-    .select()
-    .from("buyer")
+  knex("buyer")
+    .select("*")
     .where("email", "=", req.body.email)
     .then((user) => {
       if (user.length > 0) return res.status(400).json("Email has already.");
 
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) next(err);
-        knex("buyer")
+        knex
           .insert({
             email: req.body.email,
             username: req.body.username,
             password: hash,
             created_at: new Date(),
           })
+          .into("buyer")
           .then(() => {
             return res.json("register");
           })
@@ -33,9 +33,8 @@ route.post("/register", (req, res, next) => {
 
 // POST login
 route.post("/login", (req, res, next) => {
-  knex
-    .select()
-    .from("buyer")
+  knex("buyer")
+    .select("*")
     .where("email", "=", req.body.email)
     .then((user) => {
       if (user.length === 0) return res.status(400).json("Not found email.");

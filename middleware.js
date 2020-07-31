@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const key = require("./key");
+const key = require("./config/key");
 
 const isAuth = (req, res, next) => {
   if (!req.headers.authorization) return res.status(401).json("Unauthorized");

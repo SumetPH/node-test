@@ -41,7 +41,7 @@ route.get("/:id", async (req, res, next) => {
       .where("product_id", "=", product[0].id);
 
     product[0].images = images;
-    return res.json(product);
+    return res.json(product[0]);
   } catch (err) {
     next(err);
   }

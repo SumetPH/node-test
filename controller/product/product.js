@@ -4,11 +4,9 @@ const joi = require("@hapi/joi");
 const schema = joi.object({
   name: joi.string().required(),
   category: joi.string().required(),
-  category: joi.string().required(),
-  description: joi.string().required(),
   price: joi.string().required(),
+  description: joi.string().required(),
   quantity: joi.string().required(),
-  sold: joi.string(),
 });
 
 // GET all products.
@@ -52,13 +50,9 @@ route.post("/", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
     await knex("product").insert({
-      name: req.body.name,
-      price: req.body.price,
-      quantity: req.body.quantity,
-      category: req.body.category,
-      description: req.body.description,
+      ...req.body,
+      created_at: new Date(),
     });
-
     return res.json("product created.");
   } catch (err) {
     next(err);
@@ -68,8 +62,12 @@ route.post("/", async (req, res, next) => {
 // PUT update product information.
 route.put("/:id", async (req, res, next) => {
   try {
-    await knex("product").where("id", "=", req.params.id).update(req.body);
-
+    await knex("product")
+      .where("id", "=", req.params.id)
+      .update({
+        ...req.body,
+        updated_at: new Date(),
+      });
     return res.json("product updated.");
   } catch (err) {
     next(err);

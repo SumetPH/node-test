@@ -16,10 +16,10 @@ route.post("/:product_id", (req, res, next) => {
   }
 });
 
-// DELETE image by id.
+// DELETE a image by id.
 route.delete("/:product_id", async (req, res, next) => {
   try {
-    await knex("image").where("product_id", "=", req.params.product_id).del();
+    await knex("image").where("id", "=", req.params.product_id).del();
     return res.json("image deleted.");
   } catch (err) {
     next(err);

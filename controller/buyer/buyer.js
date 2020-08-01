@@ -5,51 +5,47 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // POST register
-route.post("/register", (req, res, next) => {
-  knex("buyer")
-    .select("*")
-    .where("email", "=", req.body.email)
-    .then((user) => {
-      if (user.length > 0) return res.status(400).json("Email has already.");
+route.post("/register", async (req, res, next) => {
+  try {
+    const checkEmail = await knex("buyer")
+      .select("*")
+      .where("email", "=", req.body.email);
+    if (checkEmail.length > 0) next(new Error("Email has already."));
 
-      bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if (err) next(err);
-        knex
-          .insert({
-            email: req.body.email,
-            username: req.body.username,
-            password: hash,
-            created_at: new Date(),
-          })
-          .into("buyer")
-          .then(() => {
-            return res.json("register");
-          })
-          .catch((err) => next(err));
-      });
-    })
-    .catch((err) => next(err));
+    const hash = await bcrypt.hashSync(req.body.password, 10);
+    await knex("buyer").insert({
+      email: req.body.email,
+      username: req.body.username,
+      password: hash,
+      created_at: new Date(),
+    });
+    return res.json("register");
+  } catch (err) {
+    next(err);
+  }
 });
 
 // POST login
-route.post("/login", (req, res, next) => {
-  knex("buyer")
-    .select("*")
-    .where("email", "=", req.body.email)
-    .then((user) => {
-      if (user.length === 0) return res.status(400).json("Not found email.");
+route.post("/login", async (req, res, next) => {
+  try {
+    const user = await knex("buyer")
+      .select("*")
+      .where("email", "=", req.body.email);
+    if (user.length === 0) next(new Error("Not found email."));
 
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-        if (err) next(err);
-        if (!result) return res.status(400).json("Password does't match.");
-        const token = jwt.sign(
-          { email: user[0].email, username: user[0].username },
-          key.privateKey
-        );
-        return res.json({ token });
-      });
-    })
-    .catch((err) => next(err));
+    const match = await bcrypt.compare(req.body.password, user[0].password);
+    if (match) {
+      const token = await jwt.sign(
+        { id: user[0].id, email: user[0].email, username: user[0].username },
+        key.privateKey
+      );
+      return res.json({ token });
+    } else {
+      next(new Error("Password does't match."));
+    }
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = route;

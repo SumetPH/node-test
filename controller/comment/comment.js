@@ -22,7 +22,7 @@ route.post("/:product_id", async (req, res, next) => {
     await schema.validateAsync(req.body);
     await knex("comment").insert({
       product_id: req.params.product_id,
-      buyer_id: req.user.id,
+      user_id: req.user.id,
       created_at: new Date(),
       ...req.body,
     });

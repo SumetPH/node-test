@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
   try {
     const carts = await knex("cart")
       .select("*")
-      .where("buyer_id", "=", req.user.id);
+      .where("user_id", "=", req.user.id);
     return res.json(carts);
   } catch (err) {
     next(err);
@@ -23,19 +23,19 @@ router.post("/:product_id", async (req, res, next) => {
     await schema.validateAsync(req.body);
     const checkCart = await knex("cart")
       .select("*")
-      .where("buyer_id", "=", req.user.id)
+      .where("user_id", "=", req.user.id)
       .andWhere("product_id", "=", req.params.product_id);
     if (checkCart.length === 0) {
       await knex("cart").insert({
         ...req.body,
-        buyer_id: req.user.id,
+        user_id: req.user.id,
         product_id: req.params.product_id,
         created_at: new Date(),
       });
       return res.json("cart created.");
     } else {
       await knex("cart")
-        .where("buyer_id", "=", req.user.id)
+        .where("user_id", "=", req.user.id)
         .andWhere("product_id", "=", req.params.product_id)
         .update({
           ...req.body,
@@ -52,7 +52,7 @@ router.post("/:product_id", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     await knex("cart")
-      .where("buyer_id", "=", req.user.id)
+      .where("user_id", "=", req.user.id)
       .andWhere("id", "=", req.params.id)
       .del();
     return res.json("cart deleted.");

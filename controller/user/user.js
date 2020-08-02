@@ -7,13 +7,13 @@ const bcrypt = require("bcrypt");
 // POST register
 route.post("/register", async (req, res, next) => {
   try {
-    const checkEmail = await knex("buyer")
+    const checkEmail = await knex("user")
       .select("*")
       .where("email", "=", req.body.email);
     if (checkEmail.length > 0) next(new Error("Email has already."));
 
     const hash = await bcrypt.hashSync(req.body.password, 10);
-    await knex("buyer").insert({
+    await knex("user").insert({
       email: req.body.email,
       username: req.body.username,
       password: hash,
@@ -28,7 +28,7 @@ route.post("/register", async (req, res, next) => {
 // POST login
 route.post("/login", async (req, res, next) => {
   try {
-    const user = await knex("buyer")
+    const user = await knex("user")
       .select("*")
       .where("email", "=", req.body.email);
     if (user.length === 0) next(new Error("Not found email."));

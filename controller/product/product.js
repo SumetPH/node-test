@@ -10,7 +10,7 @@ const schema = joi.object({
 });
 
 // GET all products.
-route.get("/", async (_req, res) => {
+route.get("/", async (_req, res, next) => {
   try {
     const products = await knex("product").select("*");
     const images = await knex("image").select("*");

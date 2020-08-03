@@ -3,6 +3,7 @@ const product = require("./controller/product/product");
 const productImage = require("./controller/product/image");
 const comment = require("./controller/comment/comment");
 const cart = require("./controller/cart/cart");
+const shipment = require("./controller/shipment/shipment");
 
 const { isAuth, notFund, errorHandle } = require("./middleware");
 
@@ -13,6 +14,7 @@ module.exports = (app) => {
   app.use("/product/image", productImage);
   app.use("/comment", isAuth, comment);
   app.use("/cart", isAuth, cart);
+  app.use("/shipment", isAuth, shipment);
 
   // middleware
   app.use(notFund);

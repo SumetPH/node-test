@@ -1,11 +1,11 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("cart", table => {
+  return knex.schema.createTable("order_item", table => {
     table.increments("id").primary();
     table
-      .integer("product_id")
+      .integer("order_id")
       .unsigned()
       .references("id")
-      .inTable("product")
+      .inTable("order")
       .onUpdate("cascade")
       .onDelete("cascade")
       .notNullable();
@@ -17,12 +17,20 @@ exports.up = function(knex) {
       .onUpdate("cascade")
       .onDelete("cascade")
       .notNullable();
-    table.integer("quantity").notNullable();
+    table
+      .integer("product_id")
+      .unsigned()
+      .references("id")
+      .inTable("product")
+      .onUpdate("cascade")
+      .onDelete("cascade")
+      .notNullable();
+    table.integer("quantity");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at");
   });
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable("cart");
+  return knex.schema.dropTable("order_item");
 };

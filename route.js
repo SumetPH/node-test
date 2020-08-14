@@ -4,10 +4,11 @@ const productImage = require("./controller/product/image");
 const comment = require("./controller/comment/comment");
 const cart = require("./controller/cart/cart");
 const shipment = require("./controller/shipment/shipment");
+const order = require("./controller/order/order");
 
 const { isAuth, notFund, errorHandle } = require("./middleware");
 
-module.exports = (app) => {
+module.exports = app => {
   // route
   app.use("/user", user);
   app.use("/product", product);
@@ -15,6 +16,7 @@ module.exports = (app) => {
   app.use("/comment", isAuth, comment);
   app.use("/cart", isAuth, cart);
   app.use("/shipment", isAuth, shipment);
+  app.use("/order", isAuth, order);
 
   // middleware
   app.use(notFund);

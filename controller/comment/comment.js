@@ -3,7 +3,7 @@ const knex = require("../../config/knex");
 const joi = require("@hapi/joi");
 const schema = joi.object({
   description: joi.string().required(),
-  rating: joi.number().required(),
+  rating: joi.number().required()
 });
 
 // GET all comments.
@@ -17,6 +17,7 @@ route.get("/", async (_req, res, next) => {
 });
 
 // POST a comment by product_id.
+// REQ product_id, user_id, description, rating
 route.post("/:product_id", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
@@ -24,7 +25,7 @@ route.post("/:product_id", async (req, res, next) => {
       product_id: req.params.product_id,
       user_id: req.user.id,
       created_at: new Date(),
-      ...req.body,
+      ...req.body
     });
     return res.json("comment created.");
   } catch (err) {
@@ -33,6 +34,7 @@ route.post("/:product_id", async (req, res, next) => {
 });
 
 // PUT a comment by id.
+// REQ comment_id, description, rating
 route.put("/:id", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
@@ -40,7 +42,7 @@ route.put("/:id", async (req, res, next) => {
       .where("id", "=", req.params.id)
       .update({
         updated_at: new Date(),
-        ...req.body,
+        ...req.body
       });
     return res.json("comment updated.");
   } catch (err) {
@@ -49,9 +51,12 @@ route.put("/:id", async (req, res, next) => {
 });
 
 // DELETE a comment by id.
+// REQ comment_id
 route.delete("/:id", async (req, res, next) => {
   try {
-    await knex("comment").where("id", "=", req.params.id).del();
+    await knex("comment")
+      .where("id", "=", req.params.id)
+      .del();
     return res.json("comment deleted.");
   } catch (err) {
     next(err);

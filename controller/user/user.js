@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 // POST register
+// REQ email, username, password
 route.post("/register", async (req, res, next) => {
   try {
     const checkEmail = await knex("user")
@@ -17,7 +18,7 @@ route.post("/register", async (req, res, next) => {
       email: req.body.email,
       username: req.body.username,
       password: hash,
-      created_at: new Date(),
+      created_at: new Date()
     });
     return res.json("register");
   } catch (err) {
@@ -26,6 +27,7 @@ route.post("/register", async (req, res, next) => {
 });
 
 // POST login
+// REQ email, password
 route.post("/login", async (req, res, next) => {
   try {
     const user = await knex("user")

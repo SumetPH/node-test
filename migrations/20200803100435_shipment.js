@@ -1,5 +1,5 @@
-exports.up = function (knex) {
-  return knex.schema.createTable("shipment", (table) => {
+exports.up = function(knex) {
+  return knex.schema.createTable("shipment", table => {
     table.increments("id").primary();
     table
       .integer("user_id")
@@ -7,7 +7,8 @@ exports.up = function (knex) {
       .references("id")
       .inTable("user")
       .onUpdate("cascade")
-      .onDelete("cascade");
+      .onDelete("cascade")
+      .notNullable();
     table.string("name").notNullable();
     table.string("address").notNullable();
     table.string("district").notNullable();
@@ -19,6 +20,6 @@ exports.up = function (knex) {
   });
 };
 
-exports.down = function (knex) {
+exports.down = function(knex) {
   return knex.schema.dropTable("shipment");
 };

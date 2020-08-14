@@ -1,5 +1,5 @@
-exports.up = function (knex) {
-  return knex.schema.createTable("image", (table) => {
+exports.up = function(knex) {
+  return knex.schema.createTable("image", table => {
     table.increments("id").primary();
     table
       .integer("product_id")
@@ -7,11 +7,12 @@ exports.up = function (knex) {
       .references("id")
       .inTable("product")
       .onUpdate("cascade")
-      .onDelete("cascade");
+      .onDelete("cascade")
+      .notNullable();
     table.text("path").notNullable();
   });
 };
 
-exports.down = function (knex) {
+exports.down = function(knex) {
   return knex.schema.dropTable("image");
 };

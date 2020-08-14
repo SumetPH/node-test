@@ -2,10 +2,11 @@ const router = require("express").Router();
 const knex = require("../../config/knex");
 const joi = require("@hapi/joi");
 const schema = joi.object({
-  quantity: joi.number().required(),
+  quantity: joi.number().required()
 });
 
 // GET items in cart.
+// REQ user_id
 router.get("/", async (req, res, next) => {
   try {
     const carts = await knex("cart")
@@ -18,6 +19,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST item in cart.
+// REQ user_id, product_id, quantity
 router.post("/:product_id", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
@@ -30,7 +32,7 @@ router.post("/:product_id", async (req, res, next) => {
         ...req.body,
         user_id: req.user.id,
         product_id: req.params.product_id,
-        created_at: new Date(),
+        created_at: new Date()
       });
       return res.json("cart created.");
     } else {
@@ -39,7 +41,7 @@ router.post("/:product_id", async (req, res, next) => {
         .andWhere("product_id", "=", req.params.product_id)
         .update({
           ...req.body,
-          updated_at: new Date(),
+          updated_at: new Date()
         });
       return res.json("cart updated.");
     }
@@ -49,6 +51,7 @@ router.post("/:product_id", async (req, res, next) => {
 });
 
 // DELETE item in cart by id.
+// REQ user_id, cart_id
 router.delete("/:id", async (req, res, next) => {
   try {
     await knex("cart")

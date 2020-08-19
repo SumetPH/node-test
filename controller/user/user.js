@@ -69,7 +69,11 @@ route.get(
   passport.authenticate("facebook", { session: false }),
   async (req, res) => {
     const token = await jwt.sign(req.user, key.privateKey);
-    return res.json({ token });
+    if (process.env.NODE_ENV === "production") {
+      return res.redirect(`/login?token=${token}`);
+    } else {
+      return res.redirect(`http://localhost:8080/login?token=${token}`);
+    }
   }
 );
 

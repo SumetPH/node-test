@@ -1,3 +1,4 @@
+const path = require("path");
 const user = require("./controller/user/user");
 const product = require("./controller/product/product");
 const productImage = require("./controller/product/image");
@@ -17,6 +18,12 @@ module.exports = app => {
   app.use("/cart", isAuth, cart);
   app.use("/shipment", isAuth, shipment);
   app.use("/order", isAuth, order);
+
+  if (process.env.NODE_ENV === "production") {
+    app.get("*", (req, res) => {
+      return res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+    });
+  }
 
   // middleware
   app.use(notFund);

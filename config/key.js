@@ -1,3 +1,3 @@
 module.exports = {
-  privateKey: "sumetph",
+  privateKey: "sumetph"
 };

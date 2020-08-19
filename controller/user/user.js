@@ -1,8 +1,12 @@
+require("dotenv").config();
+
 const route = require("express").Router();
 const knex = require("../../config/knex");
 const key = require("../../config/key");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
+const { isAuth } = require("../../middleware");
 
 // POST register
 // REQ email, username, password
@@ -18,6 +22,7 @@ route.post("/register", async (req, res, next) => {
       email: req.body.email,
       username: req.body.username,
       password: hash,
+      provider: "local",
       created_at: new Date()
     });
     return res.json("register");
@@ -32,13 +37,18 @@ route.post("/login", async (req, res, next) => {
   try {
     const user = await knex("user")
       .select("*")
-      .where("email", "=", req.body.email);
-    if (user.length === 0) next(new Error("Not found email."));
+      .where("username", "=", req.body.username);
+    if (user.length === 0) next(new Error("Not found username."));
 
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (match) {
       const token = await jwt.sign(
-        { id: user[0].id, email: user[0].email, username: user[0].username },
+        {
+          id: user[0].id,
+          email: user[0].email,
+          username: user[0].username,
+          provider: user[0].provider
+        },
         key.privateKey
       );
       return res.json({ token });
@@ -48,6 +58,24 @@ route.post("/login", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+// GET facebook login
+route.get("/login/facebook", passport.authenticate("facebook"));
+
+// GET facebook login callback
+route.get(
+  "/login/facebook/return",
+  passport.authenticate("facebook", { session: false }),
+  async (req, res) => {
+    const token = await jwt.sign(req.user, key.privateKey);
+    return res.json({ token });
+  }
+);
+
+// GET check user by token in header
+route.get("/check", isAuth, (req, res) => {
+  return res.json(req.user);
 });
 
 module.exports = route;

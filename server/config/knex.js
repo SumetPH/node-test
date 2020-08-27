@@ -1,10 +1,12 @@
+const { development } = require("../knexfile");
+
 const knex = require("knex")({
   client: "pg",
   connection: {
     host: "localhost",
-    user: "sumetph",
-    password: "root",
-    database: "sumetph"
+    user: development.connection.user,
+    password: development.connection.password,
+    database: development.connection.database
   }
 });
 

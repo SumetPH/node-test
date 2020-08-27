@@ -21,11 +21,10 @@ app.use(passport.initialize());
 passport.use(passportFacebook);
 
 // route
-
 route(app);
-
-module.exports = app;
 
 app.listen(port, () =>
   console.log(`😎 Server stared port : http://localhost:${port}`)
 );
+
+module.exports = app;

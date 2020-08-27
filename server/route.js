@@ -1,11 +1,11 @@
 const path = require("path");
-const user = require("./controller/user/user");
-const product = require("./controller/product/product");
-const productImage = require("./controller/product/image");
-const comment = require("./controller/comment/comment");
-const cart = require("./controller/cart/cart");
-const shipment = require("./controller/shipment/shipment");
-const order = require("./controller/order/order");
+const user = require("./api/v1/user/user");
+const product = require("./api/v1/product/product");
+const productImage = require("./api/v1/product/image");
+const comment = require("./api/v1/comment/comment");
+const cart = require("./api/v1/cart/cart");
+const shipment = require("./api/v1/shipment/shipment");
+const order = require("./api/v1/order/order");
 
 const { isAuth, notFund, errorHandle } = require("./middleware");
 

@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const knex = require("../../config/knex");
+const knex = require("../../../config/knex");
 const joi = require("@hapi/joi");
 const schema = joi.object({
   description: joi.string().required(),

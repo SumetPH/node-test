@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const knex = require("../../config/knex");
+const knex = require("../../../config/knex");
 
 // GET all order
 router.get("/", async (req, res, next) => {

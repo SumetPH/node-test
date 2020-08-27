@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const knex = require("../../config/knex");
+const knex = require("../../../config/knex");
 
 // POST upload images.
 // REQ product_id

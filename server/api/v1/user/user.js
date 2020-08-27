@@ -1,10 +1,10 @@
 const route = require("express").Router();
-const knex = require("../../config/knex");
-const key = require("../../config/key");
+const knex = require("../../../config/knex");
+const key = require("../../../config/key");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { isAuth } = require("../../middleware");
+const { isAuth } = require("../../../middleware");
 
 // POST register
 // REQ email, username, password

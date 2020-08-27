@@ -5,7 +5,7 @@ const passportFacebook = new Strategy(
   {
     clientID: "1694808430669797",
     clientSecret: "c05e3dbfd66bb1a3a0d7463e08e77aef",
-    callbackURL: "/user/login/facebook/return"
+    callbackURL: "/api/v1/user/login/facebook/return"
   },
   async (accessToken, refreshToken, profile, cb) => {
     const user = await knex("user")

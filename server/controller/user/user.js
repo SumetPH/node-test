@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const route = require("express").Router();
 const knex = require("../../config/knex");
 const key = require("../../config/key");

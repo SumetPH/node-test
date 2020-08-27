@@ -13,7 +13,7 @@ const app = express();
 app.use("/upload", express.static("upload"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "client", "dist")));
+app.use(express.static(path.join(__dirname, "../", "client", "dist")));
 app.use(multer.array("image"));
 app.use(morgan("dev"));
 app.use(cors());
@@ -22,10 +22,12 @@ passport.use(passportFacebook);
 
 // route
 app.get("/", (req, res) => {
-  return res.json("Hollo World. 🌏");
+  return res.json("Hello World");
 });
 
 route(app);
+
+module.exports = app;
 
 app.listen(port, () =>
   console.log(`😎 Server stared port : http://localhost:${port}`)

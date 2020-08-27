@@ -2,10 +2,10 @@ const knex = require("knex")({
   client: "pg",
   connection: {
     host: "localhost",
-    user: "root",
+    user: "sumetph",
     password: "root",
-    database: "sumetph",
-  },
+    database: "sumetph"
+  }
 });
 
 module.exports = knex;

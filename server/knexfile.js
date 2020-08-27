@@ -5,10 +5,10 @@ module.exports = {
     client: "postgresql",
     connection: {
       database: "sumetph",
-      user: "root",
-      password: "root",
-    },
-  },
+      user: "sumetph",
+      password: "root"
+    }
+  }
 
   // staging: {
   //   client: 'postgresql',

@@ -11,17 +11,20 @@ const { isAuth, notFund, errorHandle } = require("./middleware");
 
 module.exports = app => {
   // route
-  app.use("/user", user);
-  app.use("/product", product);
-  app.use("/product/image", productImage);
-  app.use("/comment", isAuth, comment);
-  app.use("/cart", isAuth, cart);
-  app.use("/shipment", isAuth, shipment);
-  app.use("/order", isAuth, order);
+  app.use("/api/v1/user", user);
+  app.use("/api/v1/product", product);
+  app.use("/api/v1/product/image", productImage);
+  app.use("/api/v1/comment", isAuth, comment);
+  app.use("/api/v1/cart", isAuth, cart);
+  app.use("/api/v1/shipment", isAuth, shipment);
+  app.use("/api/v1/order", isAuth, order);
 
+  // client
   if (process.env.NODE_ENV === "production") {
     app.get("*", (req, res) => {
-      return res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+      return res.sendFile(
+        path.join(__dirname, "../", "client", "dist", "index.html")
+      );
     });
   }
 

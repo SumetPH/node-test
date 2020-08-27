@@ -3,27 +3,17 @@
     <h1>Login</h1>
     <form @submit.prevent="login">
       <div>
-        <input
-          class="input"
-          type="text"
-          placeholder="Username"
-          v-model="username"
-        />
+        <input class="input" type="text" placeholder="Username" v-model="username" />
       </div>
       <div>
-        <input
-          class="input"
-          type="text"
-          placeholder="Password"
-          v-model="password"
-        />
+        <input class="input" type="text" placeholder="Password" v-model="password" />
       </div>
       <div>
         <button class="btn-local" type="submit">Login</button>
       </div>
     </form>
     <div>
-      <a class="btn-facebook" href="/user/login/facebook">Facebook</a>
+      <a class="btn-facebook" href="/api/v1/user/login/facebook">Facebook</a>
     </div>
   </div>
 </template>
@@ -46,7 +36,7 @@ export default {
   methods: {
     login() {
       this.axios
-        .post("/user/login", {
+        .post("/api/v1/user/login", {
           username: this.username,
           password: this.password
         })

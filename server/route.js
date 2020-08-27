@@ -22,9 +22,7 @@ module.exports = app => {
   // client
   if (process.env.NODE_ENV === "production") {
     app.get("*", (req, res) => {
-      return res.sendFile(
-        path.join(__dirname, "../", "client", "dist", "index.html")
-      );
+      return res.sendFile(path.join(__dirname, "../", "dist", "index.html"));
     });
   }
 

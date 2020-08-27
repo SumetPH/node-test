@@ -13,7 +13,7 @@ const app = express();
 app.use("/upload", express.static("upload"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "../", "client", "dist")));
+app.use(express.static(path.join(__dirname, "../", "dist")));
 app.use(multer.array("image"));
 app.use(morgan("dev"));
 app.use(cors());
@@ -21,9 +21,6 @@ app.use(passport.initialize());
 passport.use(passportFacebook);
 
 // route
-app.get("/", (req, res) => {
-  return res.json("Hello World");
-});
 
 route(app);
 

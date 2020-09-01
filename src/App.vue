@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{marginTop: menuHeight}">
+  <div id="app" :style="{ marginTop: menuHeight }">
     <Nav
       :menu-height="menuHeight"
       :toggle-menu="toggleMenu"
@@ -19,13 +19,16 @@ import Section from "./components/Section";
 export default {
   components: {
     Nav,
-    Section
+    Section,
   },
   data() {
     return {
       menuHeight: "0px",
-      searchHeight: "0px"
+      searchHeight: "0px",
     };
+  },
+  mounted() {
+    this.$store.dispatch("checkUser");
   },
   methods: {
     toggleMenu() {
@@ -41,8 +44,8 @@ export default {
       } else {
         this.searchHeight = "0px";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

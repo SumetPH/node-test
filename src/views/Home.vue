@@ -28,17 +28,18 @@ import Content from "../components/Content";
 export default {
   components: {
     AsideFilter,
-    Content
-  }
+    Content,
+  },
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .head-one {
   background: url("https://images.droidsans.com/wp-content/uploads/2019/08/cover-intel-tiger-lake.jpg");
   background-size: cover;
   background-position: center;
 }
+
 .head-two {
   background: url("https://www.iphone-droid.net/wp-content/uploads/2020/06/macOS-Big-Sur.png");
   background-size: cover;

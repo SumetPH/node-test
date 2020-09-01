@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="n-menu" :style="{height: menuHeight, backgroundColor: '#2980b9'}">
+    <div
+      class="n-menu"
+      :style="{ height: menuHeight, backgroundColor: '#2980b9' }"
+    >
       <ul class="d-flex justify-content-center list-unstyled mt-4">
         <li class="mx-3" @click="toggleMenu">
           <router-link to="/">Home</router-link>
@@ -32,9 +35,11 @@
         <div class="col-4">
           <div class="d-flex justify-content-end">
             <div class="n-link">
-              <i class="fas fa-user"></i>
+              <router-link to="/about">
+                <i class="fas fa-user"></i
+              ></router-link>
             </div>
-            <div class="n-link">
+            <div v-if="checkUser" class="n-link">
               <i class="fas fa-shopping-cart"></i>
             </div>
           </div>
@@ -43,7 +48,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <div class="n-search" :style="{height: searchHeight}">
+          <div class="n-search" :style="{ height: searchHeight }">
             <div class="form-group">
               <input type="text" class="form-control text-center" />
             </div>
@@ -56,7 +61,16 @@
 
 <script>
 export default {
-  props: ["menuHeight", "toggleMenu", "searchHeight", "toggleSearch"]
+  props: ["menuHeight", "toggleMenu", "searchHeight", "toggleSearch"],
+  computed: {
+    checkUser() {
+      if (this.$store.state.user === null) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
 

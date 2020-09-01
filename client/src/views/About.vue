@@ -8,13 +8,15 @@
 <script>
 export default {
   mounted() {
-    console.log(localStorage.getItem("token"));
+    this.axios.get("/api/v1/user/check").then((res) => {
+      console.log(res.data);
+    });
   },
   methods: {
     logout() {
-      localStorage.removeItem("token");
-      this.$router.push("Login");
-    }
-  }
+      this.$store.dispatch("removeToken");
+      this.$router.push("/");
+    },
+  },
 };
 </script>

@@ -3,10 +3,20 @@
     <h1>Login</h1>
     <form @submit.prevent="login">
       <div>
-        <input class="input" type="text" placeholder="Username" v-model="username" />
+        <input
+          class="input"
+          type="text"
+          placeholder="Username"
+          v-model="username"
+        />
       </div>
       <div>
-        <input class="input" type="text" placeholder="Password" v-model="password" />
+        <input
+          class="input"
+          type="text"
+          placeholder="Password"
+          v-model="password"
+        />
       </div>
       <div>
         <button class="btn-local" type="submit">Login</button>
@@ -24,7 +34,7 @@ export default {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
     };
   },
   mounted() {
@@ -38,16 +48,16 @@ export default {
       this.axios
         .post("/api/v1/user/login", {
           username: this.username,
-          password: this.password
+          password: this.password,
         })
-        .then(res => {
+        .then((res) => {
           if (res.status === 200) {
-            localStorage.setItem("token", res.data.token);
+            this.$store.dispatch("setToken", res.data.token);
             this.$router.push("about");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

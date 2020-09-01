@@ -9,7 +9,11 @@
           <router-link to="/">Home</router-link>
         </li>
         <li class="mx-3" @click="toggleMenu">
-          <router-link to="/login">Login</router-link>
+          <router-link to="/product">Product</router-link>
+        </li>
+        <li class="mx-3" @click="toggleMenu">
+          <a v-if="$store.state.token" href="#" @click="logout">Logout</a>
+          <router-link v-else to="/login">Login</router-link>
         </li>
         <li class="mx-3" @click="toggleMenu">
           <router-link to="/about">About</router-link>
@@ -30,7 +34,11 @@
           </div>
         </div>
         <div class="col-4 text-center">
-          <strong class="pt-3 d-block text-white">SumetPH</strong>
+          <router-link to="/">
+            <strong class="pt-3 d-block text-white"
+              >SumetPH</strong
+            ></router-link
+          >
         </div>
         <div class="col-4">
           <div class="d-flex justify-content-end">
@@ -39,7 +47,7 @@
                 <i class="fas fa-user"></i
               ></router-link>
             </div>
-            <div v-if="checkUser" class="n-link">
+            <div v-if="$store.state.token" class="n-link">
               <i class="fas fa-shopping-cart"></i>
             </div>
           </div>
@@ -62,13 +70,10 @@
 <script>
 export default {
   props: ["menuHeight", "toggleMenu", "searchHeight", "toggleSearch"],
-  computed: {
-    checkUser() {
-      if (this.$store.state.user === null) {
-        return false;
-      } else {
-        return true;
-      }
+  methods: {
+    logout() {
+      this.$store.dispatch("removeToken");
+      this.$router.push("/");
     },
   },
 };

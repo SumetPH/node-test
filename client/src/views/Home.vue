@@ -1,37 +1,42 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-8 head-one" style="height: 300px;"></div>
-      <div class="col-md-4 head-two" style="height: 300px;"></div>
+      <div class="col-xl-8 head-one" style="height: 300px;"></div>
+      <div class="col-xl-4 head-two" style="height: 300px;"></div>
     </div>
     <div class="row">
-      <div class="col-md-2">
-        <AsideFilter></AsideFilter>
+      <div class="col-12 pt-3 d-flex justify-content-between">
+        <b>สินค้า</b>
+        <router-link to="/product">ดูทั้งหมด</router-link>
       </div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="border-left" style="height: 65px;">
-            <div class="col-md-6">
-              <h5 class="p-3">Head</h5>
+      <div
+        class="col-lg-4 col-xl-3 p-3"
+        v-for="(item, index) in [0, 1, 2, 3]"
+        :key="index"
+      >
+        <div class="card">
+          <img
+            class="card-img-top"
+            src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp13touch-space-select-202005_GEO_TH?wid=892&hei=820&&qlt=80&.v=1587460269141"
+            alt
+          />
+          <div class="card-body">
+            <h5>Test</h5>
+            <p>500 Bath</p>
+            <div class="row justify-content-center">
+              <button
+                class="btn btn-warning"
+                style="border-radius: 18px; width: 120px;"
+              >
+                Show
+              </button>
             </div>
           </div>
         </div>
-        <Content></Content>
       </div>
     </div>
   </div>
 </template>
-
-<script>
-import AsideFilter from "../components/AsideFilter";
-import Content from "../components/Content";
-export default {
-  components: {
-    AsideFilter,
-    Content,
-  },
-};
-</script>
 
 <style scoped>
 .head-one {

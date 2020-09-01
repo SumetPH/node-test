@@ -1,6 +1,11 @@
 <template>
-  <div id="app" :style="{marginLeft: menuWidth}">
-    <Nav :menu-width="menuWidth" :open-menu="openMenu"></Nav>
+  <div id="app" :style="{marginTop: menuHeight}">
+    <Nav
+      :menu-height="menuHeight"
+      :toggle-menu="toggleMenu"
+      :search-height="searchHeight"
+      :toggle-search="toggleSearch"
+    ></Nav>
     <Section>
       <router-view />
     </Section>
@@ -18,15 +23,23 @@ export default {
   },
   data() {
     return {
-      menuWidth: "0px"
+      menuHeight: "0px",
+      searchHeight: "0px"
     };
   },
   methods: {
-    openMenu() {
-      if (this.menuWidth === "0px") {
-        this.menuWidth = "200px";
+    toggleMenu() {
+      if (this.menuHeight === "0px") {
+        this.menuHeight = "60px";
       } else {
-        this.menuWidth = "0px";
+        this.menuHeight = "0px";
+      }
+    },
+    toggleSearch() {
+      if (this.searchHeight === "0px") {
+        this.searchHeight = "60px";
+      } else {
+        this.searchHeight = "0px";
       }
     }
   }

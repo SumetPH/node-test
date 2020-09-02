@@ -30,6 +30,27 @@ const routes = [
     name: "Login",
     component: () => import("../views/Login.vue"),
   },
+
+  {
+    path: "/admin/product",
+    name: "AdminProduct",
+    component: () => import("../views/admin/product/Product.vue"),
+  },
+  {
+    path: "/admin/product/add",
+    name: "AdminProductAdd",
+    component: () => import("../views/admin/product/Add.vue"),
+  },
+  {
+    path: "/admin/product/:id",
+    name: "AdminProductEdit",
+    component: () => import("../views/admin/product/Edit.vue"),
+  },
+  {
+    path: "/admin/product/image/:id",
+    name: "AdminProductImage",
+    component: () => import("../views/admin/product/Image.vue"),
+  },
 ];
 
 const router = new VueRouter({

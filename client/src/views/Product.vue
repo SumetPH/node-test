@@ -12,7 +12,7 @@
             </div>
           </div>
         </div>
-        <Content></Content>
+        <Content :products="products"></Content>
       </div>
     </div>
   </div>
@@ -25,6 +25,17 @@ export default {
   components: {
     AsideFilter,
     Content,
+  },
+  data() {
+    return {
+      products: [],
+    };
+  },
+  mounted() {
+    this.axios.get("/api/v1/product").then((res) => {
+      console.log(res);
+      this.products = res.data.products;
+    });
   },
 };
 </script>

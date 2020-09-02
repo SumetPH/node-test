@@ -18,6 +18,9 @@
         <li class="mx-3" @click="toggleMenu">
           <router-link to="/about">About</router-link>
         </li>
+        <li class="mx-3" @click="toggleMenu">
+          <router-link to="/admin/product">Admin</router-link>
+        </li>
       </ul>
     </div>
 

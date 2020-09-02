@@ -12,7 +12,7 @@ const schema = joi.object({
 // GET all products.
 route.get("/", async (_req, res, next) => {
   try {
-    const products = await knex("product").select("*");
+    const products = await knex("product").select("*").orderBy("id");
     const images = await knex("image").select("*");
     const data = products.map((product) => {
       const imagesFilter = images.filter(
@@ -51,11 +51,13 @@ route.get("/:id", async (req, res, next) => {
 route.post("/", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
-    await knex("product").insert({
-      ...req.body,
-      created_at: new Date(),
-    });
-    return res.json({ msg: "product created." });
+    const product = await knex("product")
+      .insert({
+        ...req.body,
+        created_at: new Date(),
+      })
+      .returning("*");
+    return res.json({ msg: "product created.", product: product[0] });
   } catch (err) {
     next(err);
   }

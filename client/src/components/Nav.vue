@@ -4,66 +4,50 @@
       class="n-menu"
       :style="{ height: menuHeight, backgroundColor: '#2980b9' }"
     >
-      <ul class="d-flex justify-content-center list-unstyled mt-4">
-        <li class="mx-3" @click="toggleMenu">
+      <ul class="menu">
+        <li class="menu-item" @click="toggleMenu">
           <router-link to="/">Home</router-link>
         </li>
-        <li class="mx-3" @click="toggleMenu">
+        <li class="menu-item" @click="toggleMenu">
           <router-link to="/product">Product</router-link>
         </li>
-        <li class="mx-3" @click="toggleMenu">
+        <li class="menu-item" @click="toggleMenu">
           <a v-if="$store.state.token" href="#" @click="logout">Logout</a>
           <router-link v-else to="/login">Login</router-link>
         </li>
-        <li class="mx-3" @click="toggleMenu">
+        <li class="menu-item" @click="toggleMenu">
           <router-link to="/about">About</router-link>
         </li>
-        <li class="mx-3" @click="toggleMenu">
+        <li class="menu-item" @click="toggleMenu">
           <router-link to="/admin/product">Admin</router-link>
         </li>
       </ul>
     </div>
 
-    <div class="col-12" style="background-color: #2980b9">
-      <div class="row">
-        <div class="col-4">
-          <div class="d-flex">
-            <div class="n-link" @click="toggleSearch">
-              <i class="fas fa-search"></i>
-            </div>
-            <div class="n-link">
-              <i class="fas fa-bars" @click="toggleMenu"></i>
-            </div>
-          </div>
+    <div class="col" style="background-color: #2980b9">
+      <div class="row" style="margin: 0;">
+        <div class="col s4">
+          <i @click="toggleSearch" class="material-icons">search</i>
+          <i @click="toggleMenu" class="material-icons">menu</i>
         </div>
-        <div class="col-4 text-center">
-          <router-link to="/">
-            <strong class="pt-3 d-block text-white"
-              >SumetPH</strong
-            ></router-link
-          >
+        <div class="col s4 center-align" style="padding-top: 10px;">
+          <router-link to="/"><strong>SumetPH</strong></router-link>
         </div>
-        <div class="col-4">
-          <div class="d-flex justify-content-end">
-            <div class="n-link">
-              <router-link to="/about">
-                <i class="fas fa-user"></i
-              ></router-link>
-            </div>
-            <div v-if="$store.state.token" class="n-link">
-              <i class="fas fa-shopping-cart"></i>
-            </div>
-          </div>
+        <div class="col s4 right-align">
+          <router-link to="/about">
+            <i class="material-icons">person</i>
+          </router-link>
+          <i v-if="$store.state.token" class="material-icons">shopping_cart</i>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="n-search" :style="{ height: searchHeight }">
-            <div class="form-group">
-              <input type="text" class="form-control text-center" />
-            </div>
+      <div class="n-search" :style="{ height: searchHeight }">
+        <div class="row">
+          <div class="col s1"></div>
+          <div class="col s10 input-field" style="margin:0;">
+            <input class="center-align white-text" type="text" />
           </div>
+          <div class="col s1"></div>
         </div>
       </div>
     </div>
@@ -89,6 +73,12 @@ a {
 
 i {
   cursor: pointer;
+  color: white;
+  padding: 10px;
+}
+
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid yellowgreen;
 }
 
 .n-menu {
@@ -103,9 +93,13 @@ i {
   transition: 0.5s;
 }
 
-.n-link {
-  padding: 1rem;
-  color: white;
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.menu-item {
+  padding: 10px;
 }
 
 .n-search {

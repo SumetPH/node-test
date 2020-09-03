@@ -1,47 +1,57 @@
 <template>
   <Layout>
-    <div class="col-12 p-3 text-center">
-      <h3>Add Product</h3>
-    </div>
     <div class="row">
-      <div class="col-md-8">
-        <div class="form-group">
+      <div class="col s12">
+        <h5>Add Product</h5>
+      </div>
+    </div>
+    <form @submit.prevent="submit">
+      <div class="row">
+        <div class="col s6">
+          <a style="color: #334043;" href @click.prevent="$router.back()">
+            &lt; Back</a
+          >
+        </div>
+        <div class="col s6 right-align">
+          <button class="btn btn-success" type="submit">
+            <i class="material-icons left">save</i>
+            Save
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 m8 input-field">
           <label for="name">Name</label>
-          <input type="text" class="form-control" v-model="name" />
+          <input type="text" v-model="name" required />
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
+        <div class="col s12 m4 input-field">
           <label for="category">Category</label>
-          <input type="text" class="form-control" v-model="category" />
+          <input type="text" class="form-control" v-model="category" required />
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
+        <div class="col s12 m6 input-field">
           <label for="price">Price</label>
-          <input type="number" class="form-control" v-model="price" />
+          <input type="number" class="form-control" v-model="price" required />
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
+        <div class="col s12 m6 input-field">
           <label for="quantity">Quantity</label>
-          <input type="number" class="form-control" v-model="quantity" />
+          <input
+            type="number"
+            class="form-control"
+            v-model="quantity"
+            required
+          />
         </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
+        <div class="col s12 input-field">
           <label for="description">Description</label>
           <textarea
-            class="form-control"
+            class="materialize-textarea"
             rows="10"
             v-model="description"
+            required
           ></textarea>
         </div>
       </div>
-      <div class="col-md-12">
-        <button class="btn btn-success" @click="submit">Save</button>
-      </div>
-    </div>
+    </form>
   </Layout>
 </template>
 

@@ -7,10 +7,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     token: null,
+    products: {
+      all: [],
+      category: [],
+      result: [],
+    },
+    filter: [],
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
+    },
+    setProductsAll(state, products) {
+      state.products.all = products;
+    },
+    setProductCategory(state, category) {
+      state.products.category = category;
     },
   },
   actions: {

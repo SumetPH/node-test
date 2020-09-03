@@ -1,36 +1,36 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-xl-8 head-one" style="height: 300px;"></div>
-      <div class="col-xl-4 head-two" style="height: 300px;"></div>
+      <div class="col s12 xl8 head-one" style="height: 300px;"></div>
+      <div class="col s12 xl4 head-two" style="height: 300px;"></div>
     </div>
     <div class="row">
-      <div class="col-12 pt-3 d-flex justify-content-between">
+      <div class="col s6">
         <b>สินค้า</b>
+      </div>
+      <div class="col s6 right-align">
         <router-link to="/product">ดูทั้งหมด</router-link>
       </div>
+    </div>
+    <div class="row">
       <div
-        class="col-lg-4 col-xl-3 p-3"
+        class="col s12 l4 xl3"
         v-for="(item, index) in [0, 1, 2, 3]"
         :key="index"
       >
         <div class="card">
-          <img
-            class="card-img-top"
-            src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp13touch-space-select-202005_GEO_TH?wid=892&hei=820&&qlt=80&.v=1587460269141"
-            alt
-          />
-          <div class="card-body">
+          <div class="card-image">
+            <img
+              src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp13touch-space-select-202005_GEO_TH?wid=892&hei=820&&qlt=80&.v=1587460269141"
+              alt
+            />
+          </div>
+          <div class="card-content">
             <h5>Test</h5>
             <p>500 Bath</p>
-            <div class="row justify-content-center">
-              <button
-                class="btn btn-warning"
-                style="border-radius: 18px; width: 120px;"
-              >
-                Show
-              </button>
-            </div>
+          </div>
+          <div class="card-action">
+            <a href="#">รายละเอียด</a>
           </div>
         </div>
       </div>

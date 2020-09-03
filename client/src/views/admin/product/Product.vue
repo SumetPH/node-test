@@ -1,70 +1,79 @@
 <template>
   <Layout>
-    <div class="col-12 p-3 text-center">
-      <h3>Products</h3>
+    <div class="row">
+      <div class="col s12">
+        <h5>Products</h5>
+      </div>
     </div>
-    <div class="col-12">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th style="width: 50%;">Name</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in paginate" :key="index">
-            <td>{{ item.id }}</td>
-            <td>
-              <router-link :to="'/admin/product/' + item.id">{{
-                item.name
-              }}</router-link>
-            </td>
-            <td>{{ item.price }}</td>
-            <td>
-              <router-link
-                v-if="item.images.length > 0"
-                :to="'/admin/product/image/' + item.id"
-              >
-                <img
-                  class="img-fluid"
-                  style="height: 50px;"
-                  :src="'/' + item.images[0].path"
-                  alt=""
-                />
-              </router-link>
-              <router-link
-                v-else
-                :to="'/admin/product/image/' + item.id"
-                class="btn btn-info"
-                >Add</router-link
-              >
-            </td>
-            <td>
-              <button class="btn btn-danger" @click="deleteData(item.id)">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div class="row">
+      <div class="col s12">
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th style="width: 50%;">Name</th>
+              <th>Price</th>
+              <th>Image</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in paginate" :key="index">
+              <td>{{ item.id }}</td>
+              <td>
+                <router-link :to="'/admin/product/' + item.id">{{
+                  item.name
+                }}</router-link>
+              </td>
+              <td>{{ item.price }}</td>
+              <td>
+                <router-link
+                  v-if="item.images.length > 0"
+                  :to="'/admin/product/image/' + item.id"
+                >
+                  <img
+                    class="responsive-img"
+                    style="height: 50px;"
+                    :src="'/' + item.images[0].path"
+                    alt=""
+                  />
+                </router-link>
+                <router-link
+                  v-else
+                  class="btn btn-small"
+                  :to="'/admin/product/image/' + item.id"
+                >
+                  <i class="material-icons left">add</i>
+                  Add</router-link
+                >
+              </td>
+              <td>
+                <button class="btn red btn-small" @click="deleteData(item.id)">
+                  <i class="material-icons left">remove_circle</i>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
     <div class="col-12">
       <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous" @click="prevPage">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
+        <li class="waves-effect">
+          <a href="#!"
+            ><i class="material-icons" @click="prevPage">chevron_left</i></a
+          >
         </li>
-        <li class="page-item">
-          <a class="page-link" href="#">{{ pageNumber }}</a>
+        <li class="active">
+          <a href="#!">{{ pageNumber }}</a>
         </li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next" @click="nextPage">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
+        <li class="waves-effect">
+          <a href="#!"
+            ><i class="material-icons" @click="nextPage">chevron_right</i></a
+          >
         </li>
       </ul>
     </div>

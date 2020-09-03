@@ -53,8 +53,4 @@ export default {
 #app {
   transition: 0.5s;
 }
-
-a {
-  text-decoration: none !important;
-}
 </style>

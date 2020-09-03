@@ -12,7 +12,7 @@ const schema = joi.object({
 // GET all products.
 route.get("/", async (_req, res, next) => {
   try {
-    const products = await knex("product").select("*").orderBy("id");
+    const products = await knex("product").select("*").orderBy("id", "desc");
     const images = await knex("image").select("*");
     const data = products.map((product) => {
       const imagesFilter = images.filter(

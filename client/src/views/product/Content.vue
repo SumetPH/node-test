@@ -1,24 +1,20 @@
 <template>
-  <div class="row pb-5">
-    <div v-for="item in products" :key="item.id" class="col-lg-6 col-xl-4 p-0">
+  <div class="row">
+    <div v-for="product in products" :key="product.id" class="col l6 xl4">
       <div class="card">
-        <img
-          v-if="item.images.length > 0"
-          class="card-img-top"
-          :src="'/' + item.images[0].path"
-          alt
-        />
-        <div class="card-body">
-          <h5>{{ item.name }}</h5>
-          <p>{{ item.price }} Bath</p>
-          <div class="row justify-content-center">
-            <button
-              class="btn btn-warning"
-              style="border-radius: 18px; width: 120px;"
-            >
-              Show
-            </button>
-          </div>
+        <div class="card-image">
+          <img
+            v-if="product.images.length > 0"
+            :src="'/' + product.images[0].path"
+            alt
+          />
+        </div>
+        <div class="card-content">
+          <h5>{{ product.name }}</h5>
+          <p>{{ product.price }} Bath</p>
+        </div>
+        <div class="card-action">
+          <a href="#">เพิ่ม</a>
         </div>
       </div>
     </div>
@@ -27,7 +23,25 @@
 
 <script>
 export default {
-  props: ["products"],
+  computed: {
+    products() {
+      const { all, category } = this.$store.state.products;
+      if (category.length === 0) {
+        return all;
+      } else {
+        const filterProduct = all.filter((p) => {
+          let product;
+          category.forEach((c) => {
+            if (c === p.category) {
+              product = p;
+            }
+          });
+          return product;
+        });
+        return filterProduct;
+      }
+    },
+  },
 };
 </script>
 

@@ -1,18 +1,11 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-xl-2">
+      <div class="col xl3">
         <AsideFilter></AsideFilter>
       </div>
-      <div class="col-xl-10">
-        <div class="row">
-          <div class="border-left" style="height: 65px;">
-            <div class="col-md-6">
-              <h5 class="p-3">Head</h5>
-            </div>
-          </div>
-        </div>
-        <Content :products="products"></Content>
+      <div class="col xl9">
+        <Content></Content>
       </div>
     </div>
   </div>
@@ -33,8 +26,8 @@ export default {
   },
   mounted() {
     this.axios.get("/api/v1/product").then((res) => {
-      console.log(res);
-      this.products = res.data.products;
+      console.log(res, "mountedProduct");
+      this.$store.commit("setProductsAll", res.data.products);
     });
   },
 };

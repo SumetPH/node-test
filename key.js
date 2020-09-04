@@ -1,6 +1,6 @@
 module.exports = {
   privateKey: "sumetph",
-  psqlDatabse: "sumetph",
+  psqlDatabse: "node_store",
   psqlUser: "sumetph",
   psqlPassword: "root",
   FBClientID: "1694808430669797",

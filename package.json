@@ -1,6 +1,7 @@
 {
   "name": "node-store",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "server": "nodemon server.js",
     "start": "NODE_ENV=production node server.js"

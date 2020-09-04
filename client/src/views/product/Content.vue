@@ -25,7 +25,9 @@
             <p>{{ product.price }} Bath</p>
           </div>
           <div class="card-action">
-            <a class="a-color" href="#">เพิ่ม</a>
+            <router-link class="a-color" :to="'/product/' + product.id">
+              เพิ่ม
+            </router-link>
           </div>
         </div>
       </div>

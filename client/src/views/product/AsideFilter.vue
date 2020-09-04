@@ -40,10 +40,23 @@
         <strong>Category</strong>
       </div>
       <div class="col s12 m6">
-        <input class="form-control" type="text" placeholder="ต่ำสุด" />
+        <input
+          class="form-control"
+          type="number"
+          @change="minMaxPrice"
+          v-model="min"
+          placeholder="ต่ำสุด"
+          min="0"
+        />
       </div>
       <div class="col s12 m6 p-1">
-        <input class="form-control" type="text" placeholder="สูงสุด" />
+        <input
+          type="number"
+          @change="minMaxPrice"
+          v-model="max"
+          placeholder="สูงสุด"
+          min="0"
+        />
       </div>
     </div>
 
@@ -72,7 +85,13 @@ export default {
   data() {
     return {
       category: [],
+      min: "",
+      max: "",
     };
+  },
+  mounted() {
+    this.$store.commit("setProductCategory", []);
+    this.$store.commit("setProductPrice", { min: 0, max: 0 });
   },
   computed: {
     categoryList() {
@@ -85,6 +104,12 @@ export default {
   methods: {
     categoryFilter() {
       this.$store.commit("setProductCategory", this.category);
+    },
+    minMaxPrice() {
+      this.$store.commit("setProductPrice", {
+        min: this.min === "" ? 0 : parseInt(this.min),
+        max: this.max === "" ? 0 : parseInt(this.max),
+      });
     },
   },
 };

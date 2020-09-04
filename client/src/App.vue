@@ -50,7 +50,25 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: "Grandstander", cursive;
+}
+
 #app {
   transition: 0.5s;
+}
+
+.a-color {
+  color: #be985f !important;
+}
+
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid #747eac !important;
+  box-shadow: 0 1px 0 0 #747eac !important;
+}
+
+.input-field input[type="password"]:focus {
+  border-bottom: 1px solid #747eac !important;
+  box-shadow: 0 1px 0 0 #747eac !important;
 }
 </style>

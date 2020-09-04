@@ -9,8 +9,10 @@ export default new Vuex.Store({
     token: null,
     products: {
       all: [],
+      keyword: "",
       category: [],
-      result: [],
+      min: 0,
+      max: 0,
     },
     filter: [],
   },
@@ -21,8 +23,15 @@ export default new Vuex.Store({
     setProductsAll(state, products) {
       state.products.all = products;
     },
+    setProductKeyword(state, keyword) {
+      state.products.keyword = keyword;
+    },
     setProductCategory(state, category) {
       state.products.category = category;
+    },
+    setProductPrice(state, { max, min }) {
+      state.products.min = min;
+      state.products.max = max;
     },
   },
   actions: {

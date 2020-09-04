@@ -2,7 +2,7 @@
   <div>
     <div
       class="n-menu"
-      :style="{ height: menuHeight, backgroundColor: '#2980b9' }"
+      :style="{ height: menuHeight, backgroundColor: '#322b32' }"
     >
       <ul class="menu">
         <li class="menu-item" @click="toggleMenu">
@@ -24,7 +24,7 @@
       </ul>
     </div>
 
-    <div class="col" style="background-color: #2980b9">
+    <div class="col" style="background-color: #7d5c47">
       <div class="row" style="margin: 0;">
         <div class="col s4">
           <i @click="toggleSearch" class="material-icons">search</i>
@@ -45,7 +45,13 @@
         <div class="row">
           <div class="col s1"></div>
           <div class="col s10 input-field" style="margin:0;">
-            <input class="center-align white-text" type="text" />
+            <form @submit.prevent="search">
+              <input
+                class="center-align white-text"
+                type="text"
+                v-model="keyword"
+              />
+            </form>
           </div>
           <div class="col s1"></div>
         </div>
@@ -57,7 +63,19 @@
 <script>
 export default {
   props: ["menuHeight", "toggleMenu", "searchHeight", "toggleSearch"],
+  data() {
+    return {
+      keyword: "",
+    };
+  },
   methods: {
+    search() {
+      this.$store.commit("setProductKeyword", this.keyword);
+      this.toggleSearch();
+      if (this.$route.path !== "/product") {
+        this.$router.push("/product");
+      }
+    },
     logout() {
       this.$store.dispatch("removeToken");
       this.$router.push("/");

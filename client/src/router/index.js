@@ -3,11 +3,6 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-const isAuth = (to, from, next) => {
-  if (localStorage.getItem("token") === null) next({ name: "Login" });
-  else next();
-};
-
 const routes = [
   {
     path: "/",
@@ -23,12 +18,11 @@ const routes = [
     path: "/about",
     name: "About",
     component: () => import("../views/About.vue"),
-    beforeEnter: isAuth,
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/auth/Login.vue"),
   },
 
   {
@@ -57,6 +51,17 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, _from, next) => {
+  window.scrollTo(0, 0);
+  switch (to.path) {
+    case "/about":
+      localStorage.getItem("token") === null ? next({ name: "Login" }) : next();
+      break;
+    default:
+      next();
+  }
 });
 
 export default router;

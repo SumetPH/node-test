@@ -9,7 +9,7 @@
         <b>สินค้า</b>
       </div>
       <div class="col s6 right-align">
-        <router-link to="/product">ดูทั้งหมด</router-link>
+        <router-link class="a-color" to="/product">ดูทั้งหมด</router-link>
       </div>
     </div>
     <div class="row">
@@ -18,7 +18,7 @@
         v-for="(item, index) in [0, 1, 2, 3]"
         :key="index"
       >
-        <div class="card">
+        <div class="card z-depth-0">
           <div class="card-image">
             <img
               src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mbp13touch-space-select-202005_GEO_TH?wid=892&hei=820&&qlt=80&.v=1587460269141"
@@ -30,7 +30,7 @@
             <p>500 Bath</p>
           </div>
           <div class="card-action">
-            <a href="#">รายละเอียด</a>
+            <a class="a-color" href="#">รายละเอียด</a>
           </div>
         </div>
       </div>

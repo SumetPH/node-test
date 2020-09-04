@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div class="row" style="background-color: #3498db;">
-      <div class="col s12 center-align white-text" style="height: 300px;">
-        <h4>My Shop Create by SumetPH.</h4>
-        <p>🌏 || 🤩 || 🐙</p>
+    <div class="row" style="background-color: #7d5c47;">
+      <div
+        class="col s12 center-align white-text"
+        style="height: 300px; padding-top: 2rem;"
+      >
+        <h4>My Shop Created by SumetPH.</h4>
       </div>
     </div>
     <div class="row">
@@ -16,7 +18,7 @@
       </div>
       <div class="col s0 l2"></div>
     </div>
-    <div style="background-color: #ecf0f1; height: 300px; margin-top: -100px;">
+    <div style="background-color: #efeaed; height: 300px; margin-top: -100px;">
       <div class="center-align" style="padding-top: 100px;">
         <h5>Welcome</h5>
         <p>

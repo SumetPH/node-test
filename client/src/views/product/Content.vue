@@ -7,29 +7,31 @@
     </div>
     <div v-if="products.length === 0" class="row">
       <div class="col s12 center-align">
-        <h4 style="margin: 5rem 0;">Not found.</h4>
+        <h4 style="margin: 5rem 0">Not found.</h4>
       </div>
     </div>
     <div v-else class="row">
       <div v-for="product in products" :key="product.id" class="col l6 xl4">
-        <div class="card hoverable">
-          <div class="card-image">
-            <img
-              v-if="product.images.length > 0"
-              :src="'/' + product.images[0].path"
-              alt
-            />
+        <router-link :to="'/product/' + product.id">
+          <div class="card hoverable">
+            <div class="card-image">
+              <img
+                v-if="product.images.length > 0"
+                :src="'/' + product.images[0].path"
+                alt
+              />
+            </div>
+            <div class="card-content">
+              <h5>{{ product.name }}</h5>
+              <p>{{ product.price }} Bath</p>
+            </div>
+            <div class="card-action">
+              <router-link class="a-color" :to="'/product/' + product.id">
+                เพิ่ม
+              </router-link>
+            </div>
           </div>
-          <div class="card-content">
-            <h5>{{ product.name }}</h5>
-            <p>{{ product.price }} Bath</p>
-          </div>
-          <div class="card-action">
-            <router-link class="a-color" :to="'/product/' + product.id">
-              เพิ่ม
-            </router-link>
-          </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -74,6 +76,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: inherit;
+}
 .card-image {
   overflow: hidden;
 }

@@ -4,7 +4,7 @@ const key = require("./key");
 const isAuth = (req, res, next) => {
   if (!req.headers.authorization) return res.status(401).json("Unauthorized");
   jwt.verify(req.headers.authorization, key.privateKey, (err, user) => {
-    if (err) next(err);
+    if (err) return res.status(401).json("Unauthorized");
     req.user = user;
     next();
   });

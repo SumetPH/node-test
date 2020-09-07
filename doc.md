@@ -90,10 +90,10 @@
       - method: get
       - header: Authorization
       - res: { carts:array }
-    - /:product_id
+    - /
       - method: post
       - header: Authorization
-      - body: quantity:number
+      - body: name:string, price:number, product_id:number, quantity:number, image:text
       - res: { msg:string }
     - /:cart_id
       - method: delete

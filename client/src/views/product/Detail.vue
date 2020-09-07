@@ -109,12 +109,18 @@ export default {
     },
     addToCart() {
       this.axios
-        .post(`/api/v1/cart/${this.product.id}`, { quantity: this.quantity })
+        .post(`/api/v1/cart`, {
+          product_id: this.product.id,
+          name: this.product.name,
+          price: this.product.price,
+          quantity: this.quantity,
+          image: this.images[0].path,
+        })
         .then(() => {
           alert("เพิ่มสินค้าสำเร็จ");
         })
         .catch(() => {
-          alert("เพิ่มสินค้าไม่สำเร็จ");
+          this.$router.push("/login");
         });
     },
   },

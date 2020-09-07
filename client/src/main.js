@@ -1,7 +1,3 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "materialize-css/dist/css/materialize.min.css";
-// import "@fortawesome/fontawesome-free/css/all.css";
-
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -10,6 +6,10 @@ import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
+
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
+Vue.use(Loading);
 
 Vue.config.productionTip = false;
 

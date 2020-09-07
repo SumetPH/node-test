@@ -20,9 +20,19 @@ const routes = [
     component: () => import("../views/product/Detail.vue"),
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: "/cart",
+    name: "Cart",
+    component: () => import("../views/Cart.vue"),
+  },
+  {
+    path: "/Profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/auth/Register.vue"),
   },
   {
     path: "/login",
@@ -60,7 +70,7 @@ const router = new VueRouter({
 router.beforeEach((to, _from, next) => {
   window.scrollTo(0, 0);
   switch (to.path) {
-    case "/about":
+    case "/profile":
       localStorage.getItem("token") === null ? next({ name: "Login" }) : next();
       break;
     default:

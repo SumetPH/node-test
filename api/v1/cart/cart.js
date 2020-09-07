@@ -10,9 +10,24 @@ const schema = joi.object({
 router.get("/", async (req, res, next) => {
   try {
     const carts = await knex("cart")
-      .select("*")
-      .where("user_id", "=", req.user.id);
-    return res.json({ carts: carts });
+      .where("user_id", "=", req.user.id)
+      .join("product", "cart.product_id", "=", "product.id")
+      .select(
+        "cart.id",
+        "cart.product_id",
+        "cart.quantity",
+        "product.name",
+        "product.price"
+      );
+    const images = await knex("image").select("*");
+    const data = carts.map((cart) => {
+      const imageFilter = images.filter(
+        (img) => img.product_id === cart.product_id
+      );
+      cart.images = imageFilter;
+      return cart;
+    });
+    return res.json({ carts: data });
   } catch (err) {
     next(err);
   }

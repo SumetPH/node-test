@@ -51,11 +51,14 @@
 
         <div class="row">
           <div class="col s12 input-field">
-            <label for="count">จำนวน</label>
-            <input type="number" min="0" value="1" />
+            <label for="quantity">จำนวน</label>
+            <input type="number" min="0" v-model="quantity" />
           </div>
           <div class="col s12">
-            <button class="btn black waves-effect waves-light">
+            <button
+              @click="addToCart"
+              class="btn black waves-effect waves-light"
+            >
               เพิ่มไปยังตะกร้า
             </button>
           </div>
@@ -77,6 +80,7 @@ export default {
   data() {
     return {
       product: [],
+      quantity: 1,
       images: [],
       preview: "",
     };
@@ -102,6 +106,16 @@ export default {
     imagePreview(path) {
       this.preview = path;
       window.M.Modal.init(this.$refs.modal).open();
+    },
+    addToCart() {
+      this.axios
+        .post(`/api/v1/cart/${this.product.id}`, { quantity: this.quantity })
+        .then(() => {
+          alert("เพิ่มสินค้าสำเร็จ");
+        })
+        .catch(() => {
+          alert("เพิ่มสินค้าไม่สำเร็จ");
+        });
     },
   },
 };

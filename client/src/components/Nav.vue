@@ -16,9 +16,6 @@
           <router-link v-else to="/login">Login</router-link>
         </li>
         <li class="menu-item" @click="toggleMenu">
-          <router-link to="/about">About</router-link>
-        </li>
-        <li class="menu-item" @click="toggleMenu">
           <router-link to="/admin/product">Admin</router-link>
         </li>
       </ul>
@@ -34,10 +31,14 @@
           <router-link to="/"><strong>SumetPH</strong></router-link>
         </div>
         <div class="col s4 right-align">
-          <router-link to="/about">
+          <router-link to="/profile">
             <i class="material-icons">person</i>
           </router-link>
-          <i v-if="$store.state.token" class="material-icons">shopping_cart</i>
+          <router-link to="/cart">
+            <i v-if="$store.state.token" class="material-icons"
+              >shopping_cart</i
+            >
+          </router-link>
         </div>
       </div>
 

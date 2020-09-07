@@ -77,13 +77,14 @@ export default {
           username: this.username,
           password: this.password,
         })
-        .then((res) => {
+        .then(() => {
           l.hide();
-          if (res.status === 200) {
-            this.$router.push("/login");
-          } else {
-            alert("Something wrong. Try again.");
-          }
+          window.M.toast({ html: "ลงทะเบียนสำเร็จ" });
+          this.$router.push("/login");
+        })
+        .catch(() => {
+          l.hide();
+          window.M.toast({ html: "Something wrong. Try again." });
         });
     },
   },

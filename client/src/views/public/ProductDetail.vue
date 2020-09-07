@@ -7,7 +7,7 @@
             @click="imagePreview(images[0].path)"
             class="responsive-img"
             :src="'/' + images[0].path"
-            alt=""
+            alt
           />
         </div>
         <div class="col s12">
@@ -20,7 +20,7 @@
               <img
                 @click="imagePreview(image.path)"
                 :src="'/' + image.path"
-                alt=""
+                alt
                 class="responsive-img"
               />
             </div>
@@ -35,9 +35,7 @@
               <h4>{{ product.name }}</h4>
             </div>
             <div>
-              <div class="chip">
-                {{ product.category }}
-              </div>
+              <div class="chip">{{ product.category }}</div>
               <span>เหลือ : {{ product.quantity }} ชิ้น</span>
             </div>
             <div>
@@ -69,7 +67,7 @@
     <!-- modal -->
     <div class="modal" ref="modal">
       <div class="modal-content">
-        <img class="responsive-img" :src="'/' + preview" alt="" />
+        <img class="responsive-img" :src="'/' + preview" alt />
       </div>
     </div>
   </div>
@@ -117,7 +115,8 @@ export default {
           image: this.images[0].path,
         })
         .then(() => {
-          alert("เพิ่มสินค้าสำเร็จ");
+          window.M.toast({ html: "เพิ่มสินค้าสำเร็จ" });
+          this.$store.dispatch("updateCart");
         })
         .catch(() => {
           this.$router.push("/login");

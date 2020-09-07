@@ -6,7 +6,9 @@
           <div class="col s12">
             <h5 style="display: flex; justify-content: space-between">
               Shopping Cart
-              <span style="font-size: 18px;">{{ carts.length }} items</span>
+              <span style="font-size: 18px;"
+                >{{ this.$store.state.carts.length }} items</span
+              >
             </h5>
           </div>
         </div>
@@ -23,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(cart, index) in carts" :key="index">
+                <tr v-for="(cart, index) in $store.state.carts" :key="index">
                   <td style="width: 40%;">
                     <div class="row" style="margin: 0px;">
                       <div class="col s6">
@@ -78,8 +80,8 @@
             class="col s12"
             style="display: flex; justify-content: space-between;"
           >
-            <p>Items {{ carts.length }}</p>
-            <p v-if="carts.length > 0">{{ sum }} Bath</p>
+            <p>Items {{ this.$store.state.carts.length }}</p>
+            <p v-if="$store.state.carts.length > 0">{{ sum }} Bath</p>
           </div>
         </div>
         <div class="row">
@@ -97,7 +99,7 @@
             <label>Shipping</label>
           </div>
         </div>
-        <div class="row" v-if="carts.length > 0">
+        <div class="row" v-if="$store.state.carts.length > 0">
           <div
             class="col s12"
             style="display: flex; justify-content: space-between;"
@@ -123,7 +125,7 @@
         <div class="row">
           <div class="col s12">
             <button style="width: 100%" class="btn waves-effect light red">
-              ชำระเงิน
+              สั่งซื้อสินค้า
             </button>
           </div>
         </div>
@@ -136,47 +138,38 @@
 export default {
   data() {
     return {
-      carts: [],
       shipping: 50,
     };
   },
   mounted() {
-    this.fetchData();
     window.M.FormSelect.init(this.$refs.address);
     window.M.FormSelect.init(this.$refs.shipping);
   },
   computed: {
     sum() {
-      return this.carts
+      return this.$store.state.carts
         .map((cart) => cart.price * cart.quantity)
         .reduce((total, value) => total + value);
     },
   },
   methods: {
-    fetchData() {
-      this.axios.get("/api/v1/cart").then((res) => {
-        console.log(res);
-        this.carts = res.data.carts;
-      });
-    },
     deleteCart(cart_id) {
       this.axios.delete(`/api/v1/cart/${cart_id}`).then(() => {
-        this.fetchData();
+        this.$store.dispatch("updateCart");
+        window.M.toast({ html: "ลบสำเร็จ" });
       });
     },
     changeQuantity(cart_id, quantity) {
-      const l = this.$loading.show();
       this.axios
         .put(`/api/v1/cart/${cart_id}`, {
           quantity: quantity,
         })
         .then(() => {
-          l.hide();
-          this.fetchData();
+          this.$store.dispatch("updateCart");
+          window.M.toast({ html: "สำเร็จ" });
         })
         .catch(() => {
-          l.hide();
-          alert("Something wrong!");
+          window.M.toast({ html: "Something wrong!" });
         });
     },
   },

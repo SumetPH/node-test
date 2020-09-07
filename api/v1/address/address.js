@@ -14,51 +14,51 @@ const schema = joi.object({
 // REQ user_id
 route.get("/", async (req, res, next) => {
   try {
-    const shipments = await knex("shipment")
+    const address = await knex("address")
       .select("*")
       .where("user_id", "=", req.user.id);
-    return res.json({ shipments: shipments });
+    return res.json({ address: address });
   } catch (err) {
     next(err);
   }
 });
 
-// POST a shipment
+// POST a address
 // REQ user_id
 route.post("/", async (req, res, next) => {
   try {
     await schema.validateAsync(req.body);
-    await knex("shipment").insert({
+    await knex("address").insert({
       user_id: req.user.id,
       ...req.body,
     });
-    return res.json({ msg: "shipment created" });
+    return res.json({ msg: "address created" });
   } catch (err) {
     next(err);
   }
 });
 
-// PUT a shipment by id
-// REQ shipment_id
-route.put("/:shipment_id", async (req, res, next) => {
+// PUT a address by id
+// REQ address_id
+route.put("/:address_id", async (req, res, next) => {
   try {
-    await knex("shipment")
-      .where("id", "=", req.params.shipment_id)
+    await knex("address")
+      .where("id", "=", req.params.address_id)
       .update({
         ...req.body,
       });
-    return res.json({ msg: "shipment updated" });
+    return res.json({ msg: "address updated" });
   } catch (err) {
     next(err);
   }
 });
 
-// DELETE a shipment by id
-// REQ shipment_id
-route.delete("/:shipment_id", async (req, res, next) => {
+// DELETE a address by id
+// REQ address_id
+route.delete("/:address_id", async (req, res, next) => {
   try {
-    await knex("shipment").where("id", "=", req.params.shipment_id).del();
-    return res.json({ msg: "shipment deleted" });
+    await knex("address").where("id", "=", req.params.address_id).del();
+    return res.json({ msg: "address deleted" });
   } catch (err) {
     next(err);
   }

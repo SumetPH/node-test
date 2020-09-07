@@ -5,7 +5,7 @@
   "scripts": {
     "server": "nodemon server.js",
     "client": "cd client && yarn client",
-    "dev": "concurrently 'yarn server' 'yarn client'",
+    "dev": "concurrently --kill-others 'yarn server' 'yarn client'",
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {

@@ -4,7 +4,7 @@ const product = require("./api/v1/product/product");
 const productImage = require("./api/v1/product/image");
 const comment = require("./api/v1/comment/comment");
 const cart = require("./api/v1/cart/cart");
-const shipment = require("./api/v1/shipment/shipment");
+const address = require("./api/v1/address/address");
 const order = require("./api/v1/order/order");
 
 const { isAuth, notFund, errorHandle } = require("./middleware");
@@ -16,7 +16,7 @@ module.exports = (app) => {
   app.use("/api/v1/product/image", productImage);
   app.use("/api/v1/comment", isAuth, comment);
   app.use("/api/v1/cart", isAuth, cart);
-  app.use("/api/v1/shipment", isAuth, shipment);
+  app.use("/api/v1/address", isAuth, address);
   app.use("/api/v1/order", isAuth, order);
 
   // client

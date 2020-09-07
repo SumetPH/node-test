@@ -35,6 +35,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// PUT quantity of item in cart
 router.put("/:cart_id", async (req, res, next) => {
   try {
     await knex("cart").where("cart.id", req.params.cart_id).update({

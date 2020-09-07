@@ -28,7 +28,11 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("checkUser");
+    this.$store.dispatch("checkUser").then(() => {
+      if (this.$store.state.token) {
+        this.$store.dispatch("updateCart");
+      }
+    });
   },
   methods: {
     toggleMenu() {

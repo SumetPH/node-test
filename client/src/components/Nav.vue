@@ -36,8 +36,11 @@
           </router-link>
           <router-link to="/cart">
             <i v-if="$store.state.token" class="material-icons"
-              >shopping_cart</i
-            >
+              >shopping_cart
+              <span v-if="$store.state.carts.length > 0" class="badge white">{{
+                this.$store.state.carts.length
+              }}</span>
+            </i>
           </router-link>
         </div>
       </div>

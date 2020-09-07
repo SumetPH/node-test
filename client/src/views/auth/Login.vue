@@ -85,11 +85,14 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          this.$store.dispatch("setToken", res.data.token);
+          this.$store.dispatch("setToken", res.data.token).then(() => {
+            this.$store.dispatch("updateCart");
+          });
+          window.M.toast({ html: "ล็อกอินสำเร็จ" });
           this.$router.push("profile");
         })
         .catch(() => {
-          alert("Something wrong!");
+          window.M.toast({ html: "Something wrong! Try again." });
         });
     },
   },

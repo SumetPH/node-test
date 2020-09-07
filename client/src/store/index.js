@@ -14,7 +14,7 @@ export default new Vuex.Store({
       min: 0,
       max: 0,
     },
-    filter: [],
+    carts: [],
   },
   mutations: {
     setToken(state, token) {
@@ -33,6 +33,9 @@ export default new Vuex.Store({
       state.products.min = min;
       state.products.max = max;
     },
+    setCart(state, carts) {
+      state.carts = carts;
+    },
   },
   actions: {
     checkUser(context) {
@@ -49,6 +52,11 @@ export default new Vuex.Store({
       localStorage.removeItem("token");
       axios.defaults.headers.common["Authorization"] = null;
       context.commit("setToken", null);
+    },
+    updateCart(context) {
+      axios.get("/api/v1/cart").then((res) => {
+        context.commit("setCart", res.data.carts);
+      });
     },
   },
   modules: {},

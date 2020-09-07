@@ -100,23 +100,23 @@
       - header: Authorization
       - res: { msg:string }
 
-  - shipment
+  - address
 
     - /
       - method: get
       - header: Authorization
-      - res: { shipments:array }
+      - res: { address:array }
     - /
       - method: put
       - header: Authorization
       - body: name:string, address:string, district:string, province:string, zip:number, phone:number
       - res: { msg:string }
-    - /:shipment_id
+    - /:address_id
       - method: put
       - header: Authorization
       - body: name:string, address:string, district:string, province:string, zip:number, phone:number
       - res: { msg:string }
-    - /:shipment_id
+    - /:address_id
       - method: delete
       - header: Authorization
       - res: { msg:string }
@@ -130,10 +130,10 @@
     - /
       - method: post
       - header: Authorization
-      - body: shipment_id:number
+      - body: address_id:number
       - res: { msg:string }
     - /:order_id
       - method: put
       - header: Authorization
-      - body: status:number
+      - body: status:number, tracking_number:string
       - res: { msg:string }

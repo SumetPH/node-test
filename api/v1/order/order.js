@@ -27,13 +27,13 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST order
-// REQ shipment_id
+// REQ address_id
 router.post("/", async (req, res, next) => {
   try {
     const order = await knex("order")
       .insert({
         user_id: req.user.id,
-        shipment_id: req.body.shipment_id,
+        address_id: req.body.address_id,
       })
       .returning("*");
 
@@ -46,7 +46,10 @@ router.post("/", async (req, res, next) => {
         order_id: order[0].id,
         user_id: req.user.id,
         product_id: item.product_id,
+        name: item.name,
         quantity: item.quantity,
+        price: item.price,
+        image: item.image,
       });
     });
 
@@ -63,7 +66,7 @@ router.post("/", async (req, res, next) => {
 router.put("/:order_id", async (req, res, next) => {
   try {
     await knex("order")
-      .update({ status: req.body.status, updated_at: new Date() })
+      .update({ ...req.body, updated_at: new Date() })
       .where("id", "=", req.params.order_id);
     return res.json({ msg: "order status updated" });
   } catch (err) {

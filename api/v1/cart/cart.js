@@ -18,7 +18,6 @@ router.get("/", async (req, res, next) => {
 // POST item in cart.
 // REQ user_id, product_id, quantity
 router.post("/", async (req, res, next) => {
-  console.log(req.body);
   try {
     await knex("cart").insert({
       user_id: req.user.id,

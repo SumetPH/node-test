@@ -31,10 +31,10 @@
           <router-link to="/"><strong>SumetPH</strong></router-link>
         </div>
         <div class="col s4 right-align">
-          <router-link to="/profile">
+          <router-link to="/user/profile">
             <i class="material-icons">person</i>
           </router-link>
-          <router-link to="/cart">
+          <router-link to="/user/cart">
             <i v-if="$store.state.token" class="material-icons"
               >shopping_cart
               <span v-if="$store.state.carts.length > 0" class="badge white">{{

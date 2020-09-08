@@ -10,11 +10,11 @@ exports.up = function (knex) {
       .onDelete("cascade")
       .notNullable();
     table.string("name").notNullable();
-    table.string("address").notNullable();
+    table.text("address").notNullable();
     table.string("district").notNullable();
     table.string("province").notNullable();
     table.string("zip").notNullable();
-    table.integer("phone").notNullable();
+    table.string("phone").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at");
   });

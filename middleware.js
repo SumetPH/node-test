@@ -4,7 +4,7 @@ const key = require("./key");
 const isAuth = (req, res, next) => {
   if (!req.headers.authorization) return res.status(401).json("Unauthorized");
   jwt.verify(req.headers.authorization, key.privateKey, (err, user) => {
-    if (err) return res.status(401).json("Unauthorized");
+    if (err) return next(err);
     req.user = user;
     next();
   });
@@ -17,10 +17,11 @@ const notFund = (req, res, next) => {
 };
 
 const errorHandle = (err, req, res, next) => {
+  console.log(err.message);
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
     massage: err.message,
-    stack: process.env.NODE_ENV === "production" ? "🧁" : err.stack,
+    stack: err.stack,
   });
 };
 

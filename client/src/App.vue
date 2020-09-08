@@ -30,6 +30,7 @@ export default {
   mounted() {
     this.$store.dispatch("checkUser").then(() => {
       if (this.$store.state.token) {
+        this.$store.dispatch("updateAddress");
         this.$store.dispatch("updateCart");
       }
     });
@@ -74,5 +75,9 @@ export default {
 .input-field input[type="password"]:focus {
   border-bottom: 1px solid #747eac !important;
   box-shadow: 0 1px 0 0 #747eac !important;
+}
+
+.select-wrapper {
+  padding-right: 2rem !important;
 }
 </style>

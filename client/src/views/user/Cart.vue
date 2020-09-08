@@ -87,7 +87,9 @@
         <div class="row">
           <div class="input-field col s12 ">
             <select ref="address">
-              <option value="1">นาโพธิ์</option>
+              <option :value="$store.state.address[0].id">
+                {{ this.$store.state.address[0].address }}
+              </option>
             </select>
             <label>Address</label>
           </div>

@@ -20,14 +20,19 @@ const routes = [
     component: () => import("../views/public/ProductDetail.vue"),
   },
   {
-    path: "/cart",
+    path: "/user/cart",
     name: "Cart",
     component: () => import("../views/user/Cart.vue"),
   },
   {
-    path: "/Profile",
+    path: "/user/profile",
     name: "Profile",
     component: () => import("../views/user/Profile.vue"),
+  },
+  {
+    path: "/user/address",
+    name: "UserAddress",
+    component: () => import("../views/user/Address.vue"),
   },
   {
     path: "/register",
@@ -42,22 +47,22 @@ const routes = [
   {
     path: "/admin/product",
     name: "AdminProduct",
-    component: () => import("../views/admin/product/Product.vue"),
+    component: () => import("../views/admin/Product.vue"),
   },
   {
     path: "/admin/product/add",
     name: "AdminProductAdd",
-    component: () => import("../views/admin/product/Add.vue"),
+    component: () => import("../views/admin/ProductAdd.vue"),
   },
   {
     path: "/admin/product/:id",
     name: "AdminProductEdit",
-    component: () => import("../views/admin/product/Edit.vue"),
+    component: () => import("../views/admin/ProductEdit.vue"),
   },
   {
     path: "/admin/product/image/:id",
     name: "AdminProductImage",
-    component: () => import("../views/admin/product/Image.vue"),
+    component: () => import("../views/admin/ProductImage.vue"),
   },
 ];
 

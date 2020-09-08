@@ -15,6 +15,7 @@ export default new Vuex.Store({
       max: 0,
     },
     carts: [],
+    address: [],
   },
   mutations: {
     setToken(state, token) {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     setCart(state, carts) {
       state.carts = carts;
     },
+    setAddress(state, address) {
+      state.address = address;
+    },
   },
   actions: {
     checkUser(context) {
@@ -56,6 +60,11 @@ export default new Vuex.Store({
     updateCart(context) {
       axios.get("/api/v1/cart").then((res) => {
         context.commit("setCart", res.data.carts);
+      });
+    },
+    updateAddress(context) {
+      axios.get("/api/v1/address").then((res) => {
+        context.commit("setAddress", res.data.address);
       });
     },
   },

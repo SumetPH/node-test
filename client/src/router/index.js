@@ -75,7 +75,7 @@ const router = new VueRouter({
 router.beforeEach((to, _from, next) => {
   window.scrollTo(0, 0);
   switch (to.path) {
-    case "/profile":
+    case "/user/profile":
       localStorage.getItem("token") === null ? next({ name: "Login" }) : next();
       break;
     default:

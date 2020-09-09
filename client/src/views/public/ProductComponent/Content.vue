@@ -11,8 +11,8 @@
       </div>
     </div>
     <div v-else class="row">
-      <div v-for="product in products" :key="product.id" class="col l6 xl4">
-        <router-link :to="'/product/' + product.id">
+      <div v-for="product in products" :key="product._id" class="col l6 xl4">
+        <router-link :to="'/product/' + product._id">
           <div class="card hoverable">
             <div class="card-image">
               <img

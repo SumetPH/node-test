@@ -82,9 +82,9 @@ export default {
           window.M.toast({ html: "ลงทะเบียนสำเร็จ" });
           this.$router.push("/login");
         })
-        .catch(() => {
+        .catch((err) => {
           l.hide();
-          window.M.toast({ html: "Something wrong. Try again." });
+          window.M.toast({ html: err.response.data.message });
         });
     },
   },

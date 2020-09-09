@@ -17,10 +17,10 @@ const notFund = (req, res, next) => {
 };
 
 const errorHandle = (err, req, res, next) => {
-  console.log(err.message);
+  // console.log(err.message);
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode).json({
-    massage: err.message,
+    message: err.message,
     stack: err.stack,
   });
 };

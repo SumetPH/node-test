@@ -5,9 +5,9 @@ module.exports = {
   development: {
     client: "postgresql",
     connection: {
-      database: key.psqlDatabse,
-      user: key.psqlUser,
-      password: key.password,
+      database: "node_store",
+      user: "sumetph",
+      password: "root",
     },
   },
 };

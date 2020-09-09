@@ -21,8 +21,8 @@
       <div class="row">
         <div class="col s12 m3"></div>
         <div class="col s12 m6 input-field">
-          <label for="username">Username</label>
-          <input type="text" v-model="username" required />
+          <label for="email">Email</label>
+          <input type="email" v-model="email" required />
         </div>
         <div class="col s12 m3"></div>
       </div>
@@ -67,32 +67,26 @@ export default {
   name: "Login",
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
     };
-  },
-  mounted() {
-    if (this.$route.query.token) {
-      localStorage.setItem("token", this.$route.query.token);
-      this.$router.push("/profile");
-    }
   },
   methods: {
     login() {
       this.axios
         .post("/api/v1/user/login", {
-          username: this.username,
+          email: this.email,
           password: this.password,
         })
         .then((res) => {
           this.$store.dispatch("setToken", res.data.token).then(() => {
             this.$store.dispatch("updateCart");
+            window.M.toast({ html: "ล็อกอินสำเร็จ" });
+            this.$router.push("/user/profile");
           });
-          window.M.toast({ html: "ล็อกอินสำเร็จ" });
-          this.$router.push("profile");
         })
-        .catch(() => {
-          window.M.toast({ html: "Something wrong! Try again." });
+        .catch((err) => {
+          window.M.toast({ html: err.response.data.message });
         });
     },
   },

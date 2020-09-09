@@ -77,7 +77,7 @@
 export default {
   data() {
     return {
-      product: [],
+      product: {},
       quantity: 1,
       images: [],
       preview: "",
@@ -108,7 +108,7 @@ export default {
     addToCart() {
       this.axios
         .post(`/api/v1/cart`, {
-          product_id: this.product.id,
+          product_id: this.product._id,
           name: this.product.name,
           price: this.product.price,
           quantity: this.quantity,

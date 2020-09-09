@@ -13,11 +13,6 @@ export default {
   components: {
     Layout,
   },
-  mounted() {
-    this.axios.get("/api/v1/user/check").then((res) => {
-      console.log(res.data);
-    });
-  },
   methods: {
     logout() {
       this.$store.dispatch("removeToken");

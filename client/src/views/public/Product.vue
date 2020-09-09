@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import AsideFilter from "./product_component/AsideFilter";
-import Content from "./product_component/Content";
+import AsideFilter from "./ProductComponent/AsideFilter";
+import Content from "./ProductComponent/Content";
 export default {
   components: {
     AsideFilter,

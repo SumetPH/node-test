@@ -40,7 +40,7 @@
                           cart.name
                         }}</router-link>
                         <br />
-                        <a @click.prevent="deleteCart(cart.id)" href="#">ลบ</a>
+                        <a @click.prevent="deleteCart(cart._id)" href="#">ลบ</a>
                       </div>
                     </div>
                   </td>
@@ -51,7 +51,7 @@
                       type="number"
                       min="1"
                       :value="cart.quantity"
-                      @change="(e) => changeQuantity(cart.id, e.target.value)"
+                      @change="(e) => changeQuantity(cart._id, e.target.value)"
                     />
                   </td>
                   <td class="center-align">
@@ -86,8 +86,15 @@
         </div>
         <div class="row">
           <div class="input-field col s12 ">
-            <select ref="address">
-              <option :value="$store.state.address[0].id">
+            <div
+              v-if="$store.state.address.length === 0"
+              style="margin-top: 3rem;"
+            >
+              <router-link to="/user/address">เพิ่มที่อยู่</router-link>
+              <hr />
+            </div>
+            <select v-else ref="address">
+              <option :value="$store.state.address[0]._id">
                 {{ this.$store.state.address[0].address }}
               </option>
             </select>

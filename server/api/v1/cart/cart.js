@@ -1,17 +1,14 @@
 const router = require("express").Router();
-const knex = require("../../../config/knex");
+const cart = require("../../../config/db").get("cart");
 
 // GET items in cart.
 // REQ user_id
 router.get("/", async (req, res, next) => {
   try {
-    const carts = await knex("cart")
-      .where("user_id", "=", req.user.id)
-      .select("*")
-      .orderBy("id");
-    return res.json({ carts: carts });
+    const carts = await cart.find({ user_id: req.user.id });
+    return res.json({ carts });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
@@ -19,7 +16,7 @@ router.get("/", async (req, res, next) => {
 // REQ user_id, product_id, quantity
 router.post("/", async (req, res, next) => {
   try {
-    await knex("cart").insert({
+    const insertCart = await cart.insert({
       user_id: req.user.id,
       product_id: req.body.product_id,
       name: req.body.name,
@@ -28,20 +25,26 @@ router.post("/", async (req, res, next) => {
       image: req.body.image,
       created_at: new Date(),
     });
-    return res.json({ msg: "cart created" });
+    return res.json({ msg: "cart created", insertCart });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
 // PUT quantity of item in cart
 router.put("/:cart_id", async (req, res, next) => {
   try {
-    await knex("cart").where("cart.id", req.params.cart_id).update({
-      quantity: req.body.quantity,
-    });
+    const updateCart = await cart.findOneAndUpdate(
+      { _id: req.params.cart_id },
+      {
+        $set: {
+          quantity: req.body.quantity,
+          updated_at: new Date(),
+        },
+      }
+    );
 
-    return res.json({ msg: "cart updated" });
+    return res.json({ msg: "cart updated", updateCart });
   } catch (err) {
     next(err);
   }
@@ -51,11 +54,8 @@ router.put("/:cart_id", async (req, res, next) => {
 // REQ user_id, cart_id
 router.delete("/:cart_id", async (req, res, next) => {
   try {
-    await knex("cart")
-      .where("user_id", "=", req.user.id)
-      .andWhere("id", "=", req.params.cart_id)
-      .del();
-    return res.json({ msg: "cart deleted" });
+    const deleteCart = await cart.findOneAndDelete({ _id: req.params.cart_id });
+    return res.json({ msg: "cart deleted", deleteCart });
   } catch (err) {
     next(err);
   }

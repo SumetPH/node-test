@@ -151,6 +151,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.dispatch("fetchCart");
     window.M.FormSelect.init(this.$refs.address);
     window.M.FormSelect.init(this.$refs.shipping);
   },
@@ -164,7 +165,7 @@ export default {
   methods: {
     deleteCart(cart_id) {
       this.axios.delete(`/api/v1/cart/${cart_id}`).then(() => {
-        this.$store.dispatch("updateCart");
+        this.$store.dispatch("fetchCart");
         window.M.toast({ html: "ลบสำเร็จ" });
       });
     },
@@ -174,7 +175,7 @@ export default {
           quantity: quantity,
         })
         .then(() => {
-          this.$store.dispatch("updateCart");
+          this.$store.dispatch("fetchCart");
           window.M.toast({ html: "สำเร็จ" });
         })
         .catch(() => {

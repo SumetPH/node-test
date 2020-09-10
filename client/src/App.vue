@@ -30,8 +30,8 @@ export default {
   mounted() {
     this.$store.dispatch("checkUser").then(() => {
       if (this.$store.state.token) {
-        this.$store.dispatch("updateAddress");
-        this.$store.dispatch("updateCart");
+        this.$store.dispatch("fetchAddress");
+        this.$store.dispatch("fetchCart");
       }
     });
   },

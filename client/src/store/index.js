@@ -57,12 +57,12 @@ export default new Vuex.Store({
       axios.defaults.headers.common["Authorization"] = null;
       context.commit("setToken", null);
     },
-    updateCart(context) {
+    fetchCart(context) {
       axios.get("/api/v1/cart").then((res) => {
         context.commit("setCart", res.data.carts);
       });
     },
-    updateAddress(context) {
+    fetchAddress(context) {
       axios.get("/api/v1/address").then((res) => {
         context.commit("setAddress", res.data.address);
       });

@@ -35,6 +35,16 @@ const routes = [
     component: () => import("../views/user/Address.vue"),
   },
   {
+    path: "/user/address/add",
+    name: "UserAddressAdd",
+    component: () => import("../views/user/AddressAdd.vue"),
+  },
+  {
+    path: "/user/address/edit/:id",
+    name: "UserAddressEdit",
+    component: () => import("../views/user/AddressEdit.vue"),
+  },
+  {
     path: "/register",
     name: "Register",
     component: () => import("../views/auth/Register.vue"),
@@ -55,7 +65,7 @@ const routes = [
     component: () => import("../views/admin/ProductAdd.vue"),
   },
   {
-    path: "/admin/product/:id",
+    path: "/admin/product/edit/:id",
     name: "AdminProductEdit",
     component: () => import("../views/admin/ProductEdit.vue"),
   },

@@ -14,6 +14,16 @@ route.get("/", async (req, res, next) => {
   }
 });
 
+// GET one by id
+route.get("/:id", async (req, res, next) => {
+  try {
+    const findAddress = await address.findOne({ _id: req.params.id });
+    return res.json({ address: findAddress });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 // POST a address
 // REQ user_id
 route.post("/", async (req, res, next) => {
@@ -23,7 +33,7 @@ route.post("/", async (req, res, next) => {
       address: joi.string().required(),
       district: joi.string().required(),
       province: joi.string().required(),
-      zip: joi.string().required(),
+      zip: joi.number().required(),
       phone: joi.number().required(),
     });
     await addressSchema.validateAsync(req.body);

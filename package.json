@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server/server.js",
+    "server": "nodemon server/server.js",
     "client": "cd client && yarn client",
     "start": "node server/server.js"
   },

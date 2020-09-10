@@ -80,7 +80,7 @@ export default {
         })
         .then((res) => {
           this.$store.dispatch("setToken", res.data.token).then(() => {
-            this.$store.dispatch("updateCart");
+            this.$store.dispatch("fetchCart");
             window.M.toast({ html: "ล็อกอินสำเร็จ" });
             this.$router.push("/user/profile");
           });

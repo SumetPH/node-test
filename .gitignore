@@ -4,6 +4,7 @@
 # *.png
 # *.jpg
 upload
+.DS_Store
 ### Node ###
 # Logs
 logs

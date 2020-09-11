@@ -59,12 +59,12 @@ export default new Vuex.Store({
     },
     fetchCart(context) {
       axios.get("/api/v1/cart").then((res) => {
-        context.commit("setCart", res.data.carts);
+        context.commit("setCart", res.data);
       });
     },
     fetchAddress(context) {
       axios.get("/api/v1/address").then((res) => {
-        context.commit("setAddress", res.data.address);
+        context.commit("setAddress", res.data);
       });
     },
   },

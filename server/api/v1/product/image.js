@@ -27,7 +27,7 @@ route.delete("/:image_id", async (req, res, next) => {
     const deleteImage = await image.findOneAndDelete({
       _id: req.params.image_id,
     });
-    return res.json({ msg: "image deleted", deleteImage });
+    return res.json({ msg: "image deleted" });
   } catch (err) {
     return next(err);
   }

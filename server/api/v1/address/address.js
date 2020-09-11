@@ -7,8 +7,8 @@ const address = require("../../../config/db").get("address");
 // REQ user_id
 route.get("/", async (req, res, next) => {
   try {
-    const addressFind = await address.find({ user_id: req.user.id });
-    return res.json({ address: addressFind });
+    const addressFind = await address.find({ user_id: req.user._id });
+    return res.json(addressFind);
   } catch (err) {
     next(err);
   }
@@ -18,7 +18,7 @@ route.get("/", async (req, res, next) => {
 route.get("/:id", async (req, res, next) => {
   try {
     const findAddress = await address.findOne({ _id: req.params.id });
-    return res.json({ address: findAddress });
+    return res.json(findAddress);
   } catch (err) {
     return next(err);
   }
@@ -46,10 +46,10 @@ route.post("/", async (req, res, next) => {
       province: req.body.province,
       zip: req.body.zip,
       phone: req.body.phone,
-      user_id: req.user.id,
+      user_id: req.user._id,
       created_at: new Date(),
     });
-    return res.json({ msg: "address created", insertAddress });
+    return res.json(insertAddress);
   } catch (err) {
     next(err);
   }
@@ -78,7 +78,7 @@ route.put("/:address_id", async (req, res, next) => {
         },
       }
     );
-    return res.json({ msg: "address updated", updateCart });
+    return res.json(updateCart);
   } catch (err) {
     next(err);
   }
@@ -91,7 +91,7 @@ route.delete("/:address_id", async (req, res, next) => {
     const deleteAddress = await address.findOneAndDelete({
       _id: req.params.address_id,
     });
-    return res.json({ msg: "address deleted", deleteAddress });
+    return res.json(deleteAddress);
   } catch (err) {
     next(err);
   }

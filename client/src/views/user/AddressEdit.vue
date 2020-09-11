@@ -73,7 +73,7 @@ export default {
         .get(`/api/v1/address/${this.$route.params.id}`)
         .then((res) => {
           console.log(res, "address");
-          this.address = res.data.address;
+          this.address = res.data;
         })
         .then(() => {
           window.M.updateTextFields();

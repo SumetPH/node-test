@@ -5,8 +5,8 @@ const cart = require("../../../config/db").get("cart");
 // REQ user_id
 router.get("/", async (req, res, next) => {
   try {
-    const carts = await cart.find({ user_id: req.user.id });
-    return res.json({ carts });
+    const carts = await cart.find({ user_id: req.user._id });
+    return res.json(carts);
   } catch (err) {
     return next(err);
   }
@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const insertCart = await cart.insert({
-      user_id: req.user.id,
+      user_id: req.user._id,
       product_id: req.body.product_id,
       name: req.body.name,
       price: req.body.price,
@@ -25,7 +25,7 @@ router.post("/", async (req, res, next) => {
       image: req.body.image,
       created_at: new Date(),
     });
-    return res.json({ msg: "cart created", insertCart });
+    return res.json(insertCart);
   } catch (err) {
     return next(err);
   }
@@ -44,7 +44,7 @@ router.put("/:cart_id", async (req, res, next) => {
       }
     );
 
-    return res.json({ msg: "cart updated", updateCart });
+    return res.json(updateCart);
   } catch (err) {
     next(err);
   }
@@ -55,7 +55,7 @@ router.put("/:cart_id", async (req, res, next) => {
 router.delete("/:cart_id", async (req, res, next) => {
   try {
     const deleteCart = await cart.findOneAndDelete({ _id: req.params.cart_id });
-    return res.json({ msg: "cart deleted", deleteCart });
+    return res.json(deleteCart);
   } catch (err) {
     next(err);
   }

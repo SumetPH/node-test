@@ -18,7 +18,7 @@ route.get("/", async (_req, res, next) => {
       product.images = filterImages;
       return product;
     });
-    return res.json({ products: data });
+    return res.json(data);
   } catch (err) {
     return next(err);
   }
@@ -32,7 +32,7 @@ route.get("/:id", async (req, res, next) => {
     const findProduct = await product.findOne({ _id: req.params.id });
     const findImages = await image.find({ product_id: req.params.id });
     findProduct.images = findImages;
-    return res.json({ product: findProduct });
+    return res.json(findProduct);
   } catch (err) {
     return next(err);
   }
@@ -61,7 +61,7 @@ route.post("/", async (req, res, next) => {
       quantity: req.body.quantity,
       created_at: new Date(),
     });
-    return res.json({ msg: "product created.", insertProduct });
+    return res.json(insertProduct);
   } catch (err) {
     return next(err);
   }
@@ -86,7 +86,7 @@ route.put("/:id", async (req, res, next) => {
       { _id: req.params.id },
       { $set: { ...req.body, updated_at: new Date() } }
     );
-    return res.json({ msg: "product updated", updateProduct });
+    return res.json(updateProduct);
   } catch (err) {
     return next(err);
   }
@@ -100,7 +100,7 @@ route.delete("/:id", async (req, res, next) => {
     const deleteProduct = await product.findOneAndDelete({
       _id: req.params.id,
     });
-    return res.json({ msg: "product deleted", deleteProduct });
+    return res.json(deleteProduct);
   } catch (err) {
     return next(err);
   }

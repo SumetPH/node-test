@@ -19,15 +19,10 @@ export default {
     AsideFilter,
     Content,
   },
-  data() {
-    return {
-      products: [],
-    };
-  },
   mounted() {
     this.axios.get("/api/v1/product").then((res) => {
       console.log(res, "mountedProduct");
-      this.$store.commit("setProductsAll", res.data.products);
+      this.$store.commit("setProductsAll", res.data);
     });
   },
 };

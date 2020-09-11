@@ -54,14 +54,14 @@ route.post("/login", async (req, res, next) => {
       if (match) {
         const token = await jwt.sign(
           {
-            id: checkUser.id,
+            _id: checkUser._id,
             email: checkUser.email,
             username: checkUser.username,
             provider: checkUser.provider,
           },
           process.env.PRIVATE_KEY
         );
-        return res.json({ msg: "login", token: token });
+        return res.json({ msg: "login", token: `${token}` });
       } else {
         return next(new Error("Password does't match."));
       }

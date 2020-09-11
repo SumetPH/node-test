@@ -88,8 +88,8 @@ export default {
       .get(`/api/v1/product/${this.$route.params.id}`)
       .then((res) => {
         console.log(res, "detail");
-        this.product = res.data.product;
-        this.images = res.data.product.images;
+        this.product = res.data;
+        this.images = res.data.images;
       })
       .then(() => {
         window.M.updateTextFields();
@@ -116,7 +116,7 @@ export default {
         })
         .then(() => {
           window.M.toast({ html: "เพิ่มสินค้าสำเร็จ" });
-          this.$store.dispatch("updateCart");
+          this.$store.dispatch("fetchCart");
         })
         .catch(() => {
           this.$router.push("/login");

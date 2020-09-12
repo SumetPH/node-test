@@ -63,7 +63,6 @@ export default {
   },
   data() {
     return {
-      // M: this.M,
       id: "",
       name: "",
       category: "",
@@ -77,12 +76,12 @@ export default {
       .get(`/api/v1/product/${this.$route.params.id}`)
       .then((res) => {
         console.log(res);
-        this.id = res.data.product.id;
-        this.name = res.data.product.name;
-        this.category = res.data.product.category;
-        this.price = res.data.product.price;
-        this.quantity = res.data.product.quantity;
-        this.description = res.data.product.description;
+        this.id = res.data._id;
+        this.name = res.data.name;
+        this.category = res.data.category;
+        this.price = res.data.price;
+        this.quantity = res.data.quantity;
+        this.description = res.data.description;
       })
       .then(() => {
         window.M.updateTextFields();

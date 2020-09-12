@@ -1,5 +1,4 @@
 const route = require("express").Router();
-const knex = require("../../../config/knex");
 const joi = require("@hapi/joi");
 const address = require("../../../config/db").get("address");
 

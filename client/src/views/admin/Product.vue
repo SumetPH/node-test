@@ -22,7 +22,7 @@
             <tr v-for="(item, index) in paginate" :key="index">
               <!-- <td>{{ item._id }}</td> -->
               <td>
-                <router-link :to="'/admin/product/edit' + item._id">{{
+                <router-link :to="'/admin/product/edit/' + item._id">{{
                   item.name
                 }}</router-link>
               </td>

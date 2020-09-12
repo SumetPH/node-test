@@ -1,13 +1,20 @@
 const jwt = require("jsonwebtoken");
-const key = require("./key");
 
 const isAuth = (req, res, next) => {
   if (!req.headers.authorization) return res.status(401).json("Unauthorized");
-  jwt.verify(req.headers.authorization, key.privateKey, (err, user) => {
-    if (err) return next(err);
-    req.user = user;
-    next();
-  });
+  if (req.headers.authorization.includes("Bearer")) {
+    const auth = req.headers.authorization.split(" ");
+    req.headers.authorization = auth[1];
+  }
+  jwt.verify(
+    req.headers.authorization,
+    process.env.PRIVATE_KEY,
+    (err, user) => {
+      if (err) return next(err);
+      req.user = user;
+      next();
+    }
+  );
 };
 
 const notFund = (req, res, next) => {

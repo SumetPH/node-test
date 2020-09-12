@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const knex = require("../../../config/knex");
+const joi = require("@hapi/joi");
 const order = require("../../../config/db").get("order");
 const orderItem = require("../../../config/db").get("order_item");
 const cart = require("../../../config/db").get("cart");
@@ -7,23 +7,17 @@ const cart = require("../../../config/db").get("cart");
 // GET all order
 router.get("/", async (req, res, next) => {
   try {
-    const orders = await knex("order")
-      .select("*")
-      .where("user_id", "=", req.user.id);
-
-    const orderItems = await knex("order_item")
-      .select("*")
-      .where("user_id", "=", req.user.id);
-
-    let orderAll = [];
-    orders.forEach((order) => {
-      const orderItemsFiller = orderItems.filter(
-        (item) => item.order_id === order.id
+    const orders = await order.find({ user_id: req.user._id });
+    const orderItems = await orderItem.find({ user_id: req.user._id });
+    const data = orders.map((order) => {
+      const items = orderItems.filter(
+        (item) => item.order_id.toString() === order._id.toString()
       );
-      orderAll.push({ ...order, products: orderItemsFiller });
+      order.items = items;
+      return order;
     });
 
-    return res.json({ orders: orderAll });
+    return res.json(data);
   } catch (err) {
     next(err);
   }
@@ -33,11 +27,20 @@ router.get("/", async (req, res, next) => {
 // REQ address_id, shipment, payment
 router.post("/", async (req, res, next) => {
   try {
+    const orderSchema = joi.object({
+      address_id: joi.string().required(),
+      shipping: joi.string().required(),
+      payment: joi.string().required(),
+    });
+    await orderSchema.validateAsync();
+
     const inertOrder = await order.insert({
       user_id: req.user._id,
       address_id: req.body.address_id,
       shipping: req.body.shipping,
       payment: req.body.payment,
+      status: "0",
+      created_at: new Date(),
     });
 
     const carts = await cart.find({ user_id: req.user._id });
@@ -67,12 +70,31 @@ router.post("/", async (req, res, next) => {
 // REQ order_id, status
 router.put("/:order_id", async (req, res, next) => {
   try {
-    await knex("order")
-      .update({ ...req.body, updated_at: new Date() })
-      .where("id", "=", req.params.order_id);
-    return res.json({ msg: "order status updated" });
+    const orderSchema = joi.object({
+      status: joi.number().required(),
+    });
+    await orderSchema.validateAsync();
+
+    const updateOrder = await order.findOneAndUpdate(
+      { _id: req.params.order_id },
+      { $set: { status: req.body.status, updated_at: new Date() } }
+    );
+    return res.json(updateOrder);
   } catch (err) {
-    next(err);
+    return next(err);
+  }
+});
+
+// DELETE order by order_id
+// REQ order_id
+router.delete("/:order_id", async (req, res, next) => {
+  try {
+    const deleteOrder = await order.findOneAndDelete({
+      _id: req.params.order_id,
+    });
+    return res.json(deleteOrder);
+  } catch (err) {
+    return next(err);
   }
 });
 

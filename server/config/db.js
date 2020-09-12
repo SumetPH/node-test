@@ -1,1 +1,1 @@
-module.exports = require("monk")("localhost/node_store");
+module.exports = require("monk")(process.env.MONGO_URI);

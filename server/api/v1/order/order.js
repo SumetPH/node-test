@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const knex = require("../../../config/knex");
+const order = require("../../../config/db").get("order");
+const orderItem = require("../../../config/db").get("order_item");
+const cart = require("../../../config/db").get("cart");
 
 // GET all order
 router.get("/", async (req, res, next) => {
@@ -27,37 +30,36 @@ router.get("/", async (req, res, next) => {
 });
 
 // POST order
-// REQ address_id
+// REQ address_id, shipment, payment
 router.post("/", async (req, res, next) => {
   try {
-    const order = await knex("order")
-      .insert({
-        user_id: req.user.id,
-        address_id: req.body.address_id,
-      })
-      .returning("*");
+    const inertOrder = await order.insert({
+      user_id: req.user._id,
+      address_id: req.body.address_id,
+      shipping: req.body.shipping,
+      payment: req.body.payment,
+    });
 
-    const cart = await knex("cart")
-      .select("*")
-      .where("user_id", "=", req.user.id);
+    const carts = await cart.find({ user_id: req.user._id });
 
-    cart.forEach(async (item) => {
-      await knex("order_item").insert({
-        order_id: order[0].id,
-        user_id: req.user.id,
+    carts.forEach(async (item) => {
+      await orderItem.insert({
+        order_id: inertOrder._id,
+        user_id: req.user._id,
         product_id: item.product_id,
         name: item.name,
         quantity: item.quantity,
         price: item.price,
         image: item.image,
+        created_at: new Date(),
       });
     });
 
-    await knex("cart").delete().where("user_id", "=", req.user.id);
+    await cart.remove({ user_id: req.user._id });
 
-    return res.json({ msg: "order created" });
+    return res.json(inertOrder);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 

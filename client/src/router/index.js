@@ -45,6 +45,11 @@ const routes = [
     component: () => import("../views/user/AddressEdit.vue"),
   },
   {
+    path: "/user/order/confirm",
+    name: "UserOrderConfirm",
+    component: () => import("../views/user/OrderConfirm.vue"),
+  },
+  {
     path: "/register",
     name: "Register",
     component: () => import("../views/auth/Register.vue"),

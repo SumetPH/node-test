@@ -93,9 +93,14 @@
               <router-link to="/user/address">เพิ่มที่อยู่</router-link>
               <hr />
             </div>
-            <select v-else ref="address">
-              <option :value="$store.state.address[0]._id">
-                {{ this.$store.state.address[0].address }}
+            <select v-else ref="address" v-model="address_id">
+              <option value="0" disabled selected>เลือก</option>
+              <option
+                v-for="(item, index) in $store.state.address"
+                :key="index"
+                :value="item._id"
+              >
+                {{ item.address }}
               </option>
             </select>
             <label>Address</label>
@@ -106,6 +111,13 @@
               <option value="40">ส่งธรรมดา + 40บาท</option>
             </select>
             <label>Shipping</label>
+          </div>
+          <div class="input-field col s12 ">
+            <select ref="payment" v-model="payment">
+              <option value="ATM">ATM</option>
+              <option value="เก็บเงินปลายทาง">เก็บเงินปลายทาง</option>
+            </select>
+            <label>Payment</label>
           </div>
         </div>
         <div class="row" v-if="$store.state.carts.length > 0">
@@ -133,7 +145,12 @@
         </div>
         <div class="row">
           <div class="col s12">
-            <button style="width: 100%" class="btn waves-effect light red">
+            <button
+              @click="checkout"
+              style="width: 100%"
+              class="btn waves-effect light red"
+              :disabled="$store.state.address.length === 0 || address_id === 0"
+            >
               สั่งซื้อสินค้า
             </button>
           </div>
@@ -147,13 +164,16 @@
 export default {
   data() {
     return {
+      address_id: 0,
       shipping: 50,
+      payment: "ATM",
     };
   },
   mounted() {
     this.$store.dispatch("fetchCart");
     window.M.FormSelect.init(this.$refs.address);
     window.M.FormSelect.init(this.$refs.shipping);
+    window.M.FormSelect.init(this.$refs.payment);
   },
   computed: {
     sum() {
@@ -180,6 +200,25 @@ export default {
         })
         .catch(() => {
           window.M.toast({ html: "Something wrong!" });
+        });
+    },
+    checkout() {
+      this.axios
+        .post("/api/v1/order", {
+          address_id: this.address_id,
+          shipping: this.shipping,
+          payment: this.payment,
+        })
+        .then((res) => {
+          console.log(res, "cart.vue");
+          this.$router.push({
+            path: "/user/order/confirm",
+            query: { order_id: res.data._id },
+          });
+        })
+        .catch((err) => {
+          console.log(err.response);
+          window.M.toast({ html: err.response.data.message });
         });
     },
   },

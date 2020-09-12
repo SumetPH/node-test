@@ -27,7 +27,7 @@
         <img class="responsive-img" :src="'/' + item.path" alt="" />
         <button
           class="btn btn-small red btn-remove"
-          @click="removeImage(item.id)"
+          @click="removeImage(item._id)"
         >
           <i class="material-icons">delete</i>
         </button>
@@ -52,8 +52,8 @@ export default {
     fetchData() {
       this.axios.get(`/api/v1/product/${this.$route.params.id}`).then((res) => {
         console.log(res, "fetchData");
-        this.product = res.data.product;
-        this.images = res.data.product.images;
+        this.product = res.data;
+        this.images = res.data.images;
       });
     },
     addImage(e) {
@@ -61,7 +61,7 @@ export default {
       let formData = new FormData();
       formData.append("image", e.target.files[0]);
       this.axios
-        .post(`/api/v1/product/image/${this.product.id}`, formData)
+        .post(`/api/v1/product/image/${this.product._id}`, formData)
         .then((res) => {
           console.log(res);
           this.fetchData();

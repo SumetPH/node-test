@@ -11,7 +11,7 @@
         <table class="responsive-table">
           <thead>
             <tr>
-              <th>ID</th>
+              <!-- <th>ID</th> -->
               <th style="width: 50%;">Name</th>
               <th>Price</th>
               <th>Image</th>
@@ -20,9 +20,9 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in paginate" :key="index">
-              <td>{{ item.id }}</td>
+              <!-- <td>{{ item._id }}</td> -->
               <td>
-                <router-link :to="'/admin/product/edit' + item.id">{{
+                <router-link :to="'/admin/product/edit' + item._id">{{
                   item.name
                 }}</router-link>
               </td>
@@ -30,7 +30,7 @@
               <td>
                 <router-link
                   v-if="item.images.length > 0"
-                  :to="'/admin/product/image/' + item.id"
+                  :to="'/admin/product/image/' + item._id"
                 >
                   <img
                     class="responsive-img"
@@ -42,14 +42,14 @@
                 <router-link
                   v-else
                   class="btn btn-small"
-                  :to="'/admin/product/image/' + item.id"
+                  :to="'/admin/product/image/' + item._id"
                 >
                   <i class="material-icons left">add</i>
                   Add</router-link
                 >
               </td>
               <td>
-                <button class="btn red btn-small" @click="deleteData(item.id)">
+                <button class="btn red btn-small" @click="deleteData(item._id)">
                   <i class="material-icons left">remove_circle</i>
                   Delete
                 </button>
@@ -109,12 +109,12 @@ export default {
     fetchData() {
       this.axios.get("/api/v1/product").then((res) => {
         console.log(res);
-        this.products = res.data.products;
+        this.products = res.data;
       });
     },
-    deleteData(id) {
+    deleteData(_id) {
       if (confirm("คุณต้องการลบหรือไม่")) {
-        this.axios.delete(`/api/v1/product/${id}`).then((res) => {
+        this.axios.delete(`/api/v1/product/${_id}`).then((res) => {
           console.log(res);
           this.fetchData();
         });

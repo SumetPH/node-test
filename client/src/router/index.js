@@ -30,6 +30,11 @@ const routes = [
     component: () => import("../views/user/Profile.vue"),
   },
   {
+    path: "/user/order",
+    name: "UserOrder",
+    component: () => import("../views/user/Order.vue"),
+  },
+  {
     path: "/user/address",
     name: "UserAddress",
     component: () => import("../views/user/Address.vue"),

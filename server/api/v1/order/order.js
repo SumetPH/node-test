@@ -39,7 +39,8 @@ router.post("/", async (req, res, next) => {
       address_id: req.body.address_id,
       shipping: req.body.shipping,
       payment: req.body.payment,
-      status: "0",
+      total: req.body.total,
+      status: 0,
       created_at: new Date(),
     });
 

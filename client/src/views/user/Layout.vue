@@ -10,7 +10,7 @@
             <router-link to="/user/profile">ข้อมูลส่วนตัว</router-link>
           </li>
           <li class="collection-item">
-            <router-link to="/user/address">คำสั่งซื้อ</router-link>
+            <router-link to="/user/order">คำสั่งซื้อ</router-link>
           </li>
           <li class="collection-item">
             <router-link to="/user/address">ที่อยู่</router-link>

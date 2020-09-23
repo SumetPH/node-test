@@ -16,6 +16,7 @@ export default new Vuex.Store({
     },
     carts: [],
     address: [],
+    order: []
   },
   mutations: {
     setToken(state, token) {
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     setAddress(state, address) {
       state.address = address;
     },
+    setOrder(state, order) {
+      state.order = order
+    }
   },
   actions: {
     checkUser(context) {
@@ -67,6 +71,11 @@ export default new Vuex.Store({
         context.commit("setAddress", res.data);
       });
     },
+    fetchOrder(context) {
+      axios.get('/api/v1/order').then(res => {
+        context.commit('setOrder', res.data)
+      })
+    }
   },
   modules: {},
 });

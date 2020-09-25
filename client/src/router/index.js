@@ -7,82 +7,82 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/public/Home.vue"),
+    component: () => import("@/router/views/home.vue"),
   },
   {
     path: "/product",
     name: "Product",
-    component: () => import("../views/public/Product.vue"),
+    component: () => import("@/router/views/product.vue"),
   },
   {
     path: "/product/:id",
     name: "ProductDetail",
-    component: () => import("../views/public/ProductDetail.vue"),
+    component: () => import("@/router/views/product-detail.vue"),
   },
   {
     path: "/user/cart",
     name: "Cart",
-    component: () => import("../views/user/Cart.vue"),
+    component: () => import("@/router/views/user-cart.vue"),
+  },
+  {
+    path: "/user/cart/confirm",
+    name: "UserCartConfirm",
+    component: () => import("@/router/views/user-cart-confirm.vue"),
   },
   {
     path: "/user/profile",
     name: "Profile",
-    component: () => import("../views/user/Profile.vue"),
+    component: () => import("@/router/views/user-profile.vue"),
   },
   {
     path: "/user/order",
     name: "UserOrder",
-    component: () => import("../views/user/Order.vue"),
+    component: () => import("@/router/views/user-order.vue"),
   },
   {
     path: "/user/address",
     name: "UserAddress",
-    component: () => import("../views/user/Address.vue"),
+    component: () => import("@/router/views/user-address.vue"),
   },
   {
     path: "/user/address/add",
     name: "UserAddressAdd",
-    component: () => import("../views/user/AddressAdd.vue"),
+    component: () => import("@/router/views/user-address-add.vue"),
   },
   {
     path: "/user/address/edit/:id",
     name: "UserAddressEdit",
-    component: () => import("../views/user/AddressEdit.vue"),
-  },
-  {
-    path: "/user/order/confirm",
-    name: "UserOrderConfirm",
-    component: () => import("../views/user/OrderConfirm.vue"),
+    component: () => import("@/router/views/user-address-edit.vue"),
   },
   {
     path: "/register",
     name: "Register",
-    component: () => import("../views/auth/Register.vue"),
+    component: () => import("@/router/views/register.vue"),
   },
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/auth/Login.vue"),
+    component: () => import("@/router/views/login.vue"),
   },
   {
     path: "/admin/product",
     name: "AdminProduct",
-    component: () => import("../views/admin/Product.vue"),
+    component: () => import("@/router/views/admin-product.vue"),
   },
   {
     path: "/admin/product/add",
     name: "AdminProductAdd",
-    component: () => import("../views/admin/ProductAdd.vue"),
+    component: () => import("@/router/views/admin-product-add.vue"),
   },
   {
     path: "/admin/product/edit/:id",
     name: "AdminProductEdit",
-    component: () => import("../views/admin/ProductEdit.vue"),
+    component: () => import("@/router/views/admin-product-edit.vue"),
   },
   {
     path: "/admin/product/image/:id",
     name: "AdminProductImage",
-    component: () => import("../views/admin/ProductImage.vue"),
+    component: () => import("@/router/views/admin-product-image.vue"),
   },
 ];
 

@@ -29,10 +29,11 @@ router.post("/", async (req, res, next) => {
   try {
     const orderSchema = joi.object({
       address_id: joi.string().required(),
-      shipping: joi.string().required(),
+      shipping: joi.number().required(),
       payment: joi.string().required(),
+      total: joi.number().required(),
     });
-    await orderSchema.validateAsync();
+    await orderSchema.validateAsync(req.body);
 
     const inertOrder = await order.insert({
       user_id: req.user._id,
@@ -69,16 +70,35 @@ router.post("/", async (req, res, next) => {
 
 // PUT update status by id
 // REQ order_id, status
-router.put("/:order_id", async (req, res, next) => {
+router.put("/status/:order_id", async (req, res, next) => {
   try {
-    const orderSchema = joi.object({
-      status: joi.number().required(),
-    });
-    await orderSchema.validateAsync();
-
     const updateOrder = await order.findOneAndUpdate(
       { _id: req.params.order_id },
-      { $set: { status: req.body.status, updated_at: new Date() } }
+      {
+        $set: {
+          status: req.body.status,
+          updated_at: new Date(),
+        },
+      }
+    );
+    return res.json(updateOrder);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+// PUT update transfer by id
+// REQ order_id, image
+router.put("/transfer/:order_id", async (req, res, next) => {
+  try {
+    const updateOrder = await order.findOneAndUpdate(
+      { _id: req.params.order_id },
+      {
+        $set: {
+          transfer_image: req.files[0].path,
+          updated_at: new Date(),
+        },
+      }
     );
     return res.json(updateOrder);
   } catch (err) {

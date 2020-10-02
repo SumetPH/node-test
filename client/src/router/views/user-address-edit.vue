@@ -15,7 +15,11 @@
       <div class="row">
         <div class="col s12 input-field">
           <label for="address">ที่อยู่</label>
-          <textarea class="materialize-textarea" name="address" v-model="address.address"></textarea>
+          <textarea
+            class="materialize-textarea"
+            name="address"
+            v-model="address.address"
+          ></textarea>
         </div>
       </div>
       <div class="row">
@@ -31,7 +35,7 @@
       <div class="row">
         <div class="col s12 l6 input-field">
           <label for="zip">รหัสไปรษณีย์</label>
-          <input type="text" v-model="address.zip" required />
+          <input type="number" v-model="address.zip" required />
         </div>
         <div class="col s12 l6 input-field">
           <label for="phone">เบอร์โทรศัพท์</label>
@@ -50,49 +54,49 @@
 </template>
 
 <script>
-  import Layout from '@/router/layouts/user.vue'
-  export default {
-    components: { Layout },
-    data() {
-      return {
-        address: [],
-      };
+import Layout from "@/router/layouts/user.vue";
+export default {
+  components: { Layout },
+  data() {
+    return {
+      address: [],
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      this.axios
+        .get(`/api/v1/address/${this.$route.params.id}`)
+        .then((res) => {
+          console.log(res, "address");
+          this.address = res.data;
+        })
+        .then(() => {
+          window.M.updateTextFields();
+        });
     },
-    mounted() {
-      this.fetchData();
+    save() {
+      this.axios
+        .put(`/api/v1/address/${this.address._id}`, {
+          name: this.address.name,
+          address: this.address.address,
+          district: this.address.district,
+          province: this.address.province,
+          zip: this.address.zip,
+          phone: this.address.phone,
+        })
+        .then(() => {
+          window.M.toast({ html: "บันทักสำเร็จ" });
+          this.$store.dispatch("fetchAddress");
+          this.$router.back();
+        })
+        .catch((err) => {
+          console.log(err.response);
+          window.M.toast({ html: "บันทักไม่สำเร็จ" });
+        });
     },
-    methods: {
-      fetchData() {
-        this.axios
-          .get(`/api/v1/address/${this.$route.params.id}`)
-          .then((res) => {
-            console.log(res, "address");
-            this.address = res.data;
-          })
-          .then(() => {
-            window.M.updateTextFields();
-          });
-      },
-      save() {
-        this.axios
-          .put(`/api/v1/address/${this.address._id}`, {
-            name: this.address.name,
-            address: this.address.address,
-            district: this.address.district,
-            province: this.address.province,
-            zip: this.address.zip,
-            phone: this.address.phone,
-          })
-          .then(() => {
-            window.M.toast({ html: "บันทักสำเร็จ" });
-            this.$store.dispatch("fetchAddress");
-            this.$router.back();
-          })
-          .catch((err) => {
-            console.log(err.response);
-            window.M.toast({ html: "บันทักไม่สำเร็จ" });
-          });
-      },
-    },
-  };
+  },
+};
 </script>

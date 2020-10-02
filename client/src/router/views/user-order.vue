@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <div class="container">
+    <div>
       <div class="row">
         <div class="col s12">
           <h5>คำสั่งซื้อ</h5>
@@ -23,13 +23,14 @@
             <div v-if="order.status === 0" class="card">
               <div class="card-content">
                 <p>
-                  Order ID : {{order._id}}
-                  <br>
-                  ชำระ : {{order.payment}}
-                  <br>
-                  การจัดส่ง : {{order.shipping === 40 ? "ส่งธรรมดา" : "ส่งด่วน"}}
-                  <br>
-                  รวม : {{order.total}} บาท
+                  Order ID : {{ order._id }}
+                  <br />
+                  ชำระ : {{ order.payment }}
+                  <br />
+                  การจัดส่ง :
+                  {{ order.shipping === 40 ? "ส่งธรรมดา" : "ส่งด่วน" }}
+                  <br />
+                  รวม : {{ order.total }} บาท
                 </p>
 
                 <table>
@@ -44,24 +45,26 @@
                   <tbody>
                     <tr v-for="(item, index) in order.items" :key="index">
                       <td style="width: 20%;">
-                        <img class="responsive-img" :src="'/' + item.image" alt="">
+                        <img
+                          class="responsive-img"
+                          :src="'/' + item.image"
+                          alt=""
+                        />
                       </td>
                       <td>
-                        {{item.name}}
+                        {{ item.name }}
                       </td>
                       <td>
-                        {{item.quantity}}
+                        {{ item.quantity }}
                       </td>
                       <td>
-                        {{item.price}}
+                        {{ item.price }}
                       </td>
                     </tr>
                   </tbody>
                 </table>
-
-                <button class="btn" style="margin-top: 1rem;">แจ้งชำระ</button>
+                <Modal :order="order" style="margin-top: 1rem;"></Modal>
               </div>
-
             </div>
           </div>
         </div>
@@ -73,12 +76,17 @@
 </template>
 
 <script>
-  import Layout from '@/router/layouts/user.vue'
-  export default {
-    components: { Layout },
-    mounted() {
-      window.M.Tabs.init(this.$refs.tabs);
-      this.$store.dispatch('fetchOrder')
-    },
-  };
+import Layout from "@/router/layouts/user.vue";
+import Modal from "@/router/views/user-order-transfer.vue";
+
+export default {
+  components: {
+    Layout,
+    Modal,
+  },
+  mounted() {
+    window.M.Tabs.init(this.$refs.tabs);
+    this.$store.dispatch("fetchOrder");
+  },
+};
 </script>
